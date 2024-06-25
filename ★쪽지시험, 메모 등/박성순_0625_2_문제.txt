@@ -1,0 +1,56 @@
+1. 정적변수와 동적변수
+클래스에서 static 키워드가 붙은 변수와 붙지 않은 변수의
+메모리 할당에 따른 차이를 서술하세요.
+	static 키워드는 정적 할당이라는 의미로
+	메모리에 해당 변수를 미리 할당하여 클래스 내에
+	여러 함수에서 동일한 변수로 사용할 수 있습니다.
+	= 클래스 내 전역변수
+2. 유니티에서 뛰어가는중인지 아닌지 판단하려면
+어떤 자료형을 써야하고 왜 써야하는지 상세하게 작성하세요.
+	참과 거짓을 사용하면 간단하기에
+	bool 자료형을 사용하여 
+	뛰어갈때 true, 아닐때 false로 판단합니다.
+3. 유니티에서 이펙트의 자료형은 무엇인가요?
+	ParticleSystem 입니다.
+4. C#에서 재귀함수는 자기 자신 함수를 호출하는 함수이다.
+다음을 코드로 작성하세요.
+실행예)
+2의 몇승을 입력할까요?
+입력 : 8
+출력 256
+을 구현하세요.
+
+static decimal Power(uint num)
+{
+    if (num == 0) return 1;
+    else return 2 * Power(num - 1);
+}
+static void Main(string[] args)
+{
+    Console.WriteLine($"2의 몇승을 입력할까요?");
+    uint PowerNum =  UInt32.Parse(Console.ReadLine());
+    
+    Console.WriteLine(Power(PowerNum));
+}
+
+
+5. 유니티에서 Prefab을 왜 사용하는지 서술하세요.
+	Scene에서 직접 Object를 사용하는것은
+	정적 할당 개념으로, 미리 메모리를 사용하여 낭비이고, 불편하기 때문
+	반면 Prefab은 동적 할당 개념으로, 원하는 때에 할당하여 사용 가능
+6. 유니티에서 Prefab을 동적 생성(인스턴스)하는 함수에 대해 적고
+전달 인자의 값 순서와 내용에 대하여 적으세요.
+	클래스 내에 미리 GameObject로 Prefab을 선언하여
+	Instantiate(GameObject, Pos.position, Pos.rotation)을 사용
+	무엇을 사용하며, 어디에 배치할 것인지, 어떤 회전방향으로 인지
+
+
+
+
+
+
+
+
+
+
+

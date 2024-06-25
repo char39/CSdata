@@ -1,0 +1,35 @@
+1번문제
+
+2/35	1
+2/17	1
+2/8	0
+2/4	0
+2/2	0
+ /1	
+
+100011 = 35
+
+
+
+2번문제 [2진수->10진수]
+
+00101010 = 42
+01110110 = 118
+01011000 = 24
+11100000 = 224
+
+
+
+3번문제 실수 소수점 입출력
+
+1번째 실수 입력 : 
+2번째 실수 입력 : 
+
+1번째 입력한 실수 출력 : 소수점 4개까지
+2번째 입력한 실수 출력 : 소수점 6개까지
+
+Console.WriteLine("소수점 포함 실수를 2개 입력해주세요.");
+Console.Write("1번째 실수 입력 : ");  double input1 = double.Parse(Console.ReadLine());
+Console.Write("2번째 실수 입력 : ");  double input2 = double.Parse(Console.ReadLine());
+Console.WriteLine(input1.ToString("0.0000"));
+Console.WriteLine(input2.ToString("0.000000"));

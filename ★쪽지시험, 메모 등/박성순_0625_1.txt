@@ -1,0 +1,38 @@
+깃허브 복습
+CheckOut 기능 알아보기
+코드뭉치 버리기, 코드물치 내리기
+
+유니티
+	총알 발사[단발, 연사]
+		04\bullet\lowbullet 씬에 추가
+		씬 왼쪽위에 Pivot, Local에서 Local은 상대좌표 x,y,z축 기준이 변함
+		Global은 절대좌표 x,y,z축 기준이 안변함
+		회전시키고 오브젝트 생성후 그 오브젝트에 자식으로 넣기
+		총알 발사시 불꽃 구현. 컴포넌트에 trail renderer
+		08materials 에 material bullet_M 생성
+		셰이더 particles priority additive
+		텍스쳐 trail 추가	C# BulletCtrl 추가	스크립트 bullet 부모옵젝에 넣기
+		rigidbody, capsuleCollider 추가 [물리엔진과 충돌판정 구현을 위함]
+		코드 짜고 prefabs에 넣어 씬에서 삭제시키기 (동적할당 시키기위함)
+		fpscontroller에 총알 발사할 위치 옵젝 추가
+		firectrl 스크립트 추가해서 fpscontroller에 컴포넌 추가
+		firectrl에서 달릴때 총 못쏘게, 발사 애니메이션 추가
+	재장전[10발 사용시 재장전on], 애니메이션과 같이
+		prefab 총알에 tag BULLET 새로 만들어 적용
+	총알을 쏜부분은 스파크(이펙트)효과 추가. 사운드까지 구현
+		06effects weaponeffets prefabs muzzleflash01을 gunfireposition에 자식으로
+	총알에 맞은부분 스파크(이펙트)효과 추가. 사운드까지 구현
+		씬에 빈 옵젝 컨테이너 만들고 자식으로 큐브 생성
+		안보이게 mesh renderer 끄고
+Collider중 mesh가 판정 안정성이 낮고 구가 1, 사면체가 2
+		
+	UI[UserInterface]
+
+
+
+
+
+
+
+
+

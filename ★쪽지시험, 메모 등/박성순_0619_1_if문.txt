@@ -1,0 +1,37 @@
+국어, 영어, 수학 점수를 입력하세요.
+국어 점수 입력 : 
+영어 점수 입력 : 
+수학 점수 입력 :
+
+총점 : 	평균 : 
+평균을 이용하여
+90점 이상은 A학점
+80점 이상은 B학점
+70점 이상은 C학점
+60점 이상은 D학점
+60점 미만은 F학점(재수강)
+
+
+
+double Kor, Eng, Math, Sum, Aver;
+
+Console.WriteLine("국어, 영어, 수학 점수를 입력하세요.");
+
+Console.Write("국어 점수 입력 : "); Kor = Convert.ToDouble(Console.ReadLine());
+Console.Write("영어 점수 입력 : "); Eng = Convert.ToDouble(Console.ReadLine());
+Console.Write("수학 점수 입력 : "); Math = Convert.ToDouble(Console.ReadLine());
+
+Sum = Kor + Eng + Math;
+Aver = Sum / 3;
+Console.Write($"총점 : {Sum,1}, 평균 : {Aver,1}\n");
+
+if (Aver >= 90)
+    Console.WriteLine("A학점");
+else if (Aver >= 80)
+    Console.WriteLine("B학점");
+else if (Aver >= 70)
+    Console.WriteLine("C학점");
+else if (Aver >= 60)
+    Console.WriteLine("D학점");
+else
+    Console.WriteLine("F학점(재수강)");

@@ -1,0 +1,37 @@
+1.
+정수를 두 번 입력 받아서 구구단을 출력하세요.
+
+실행 예) 2 9
+2단에서 9단까지 출력 (단, 9 2로 적어도 2단에서 9단까지 출력)
+
+함수(메서드)를 사용할 것
+
+
+static int Max(int x, int y)
+{
+    return (x > y) ? x : y;
+}
+static int Min(int x, int y)
+{
+    return (x < y) ? x : y;
+}
+static void gugu(int x, int y)
+{
+    for (int i = x; i <= y; i++)
+    {
+        for (int j = 1; j <= 9; j++)
+        {
+            Console.WriteLine($"{i}×{j}={i*j}");
+        }
+        Console.WriteLine();
+    }
+}
+
+public static void Main(string[] args)
+{
+    Console.WriteLine("구구단을 몇단부터 몇단까지 출력할까요?");
+    int input1 = Int32.Parse(Console.ReadLine());
+    int input2 = Int32.Parse(Console.ReadLine());
+    int MaxDan = Max(input1, input2), MinDan = Min(input1, input2);
+    gugu(MinDan, MaxDan);
+}

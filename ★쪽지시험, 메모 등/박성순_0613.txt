@@ -1,0 +1,86 @@
+쪽지시험
+
+1. 컴파일러와 컴파일에 대해서 각각 서술하세요.
+	C#언어를 컴퓨터나 유니티 등이 사용할 수 있는 기계언어로 바꾸는 과정을 컴파일이라 하고,
+	그 과정을 해주는 소프트웨어를 컴파일러라고 합니다.
+
+2. 닷넷 프레임워크에 대해 서술하세요.
+	.NET 프레임워크는 응용 프로그램을 만드는 소프트웨어입니다.
+
+3. 솔루션의 역할은 무엇인지 서술하세요.
+	여러 프로젝트를 하나로 묶는 것이 솔루션의 역할입니다.
+
+4. 컴파일러가 컴파일 후에 무엇을 눌러야 \bin\Debug 에 실행파일이
+생성되는지 서술하세요.
+	ALT + F5 를 누르면 해당 실행파일이 생성됩니다.
+
+5. namespace를 선언해서 쓰는 이유는 무엇인지 서술하세요.
+	서로 다른 namespace에서 같은 이름과 내용의 클래스, 매서드, 함수, 변수를 사용하여도
+	서로 충돌하지 않기 위함입니다. 
+
+6. 솔루션에 두 프로젝트를 만들어서 실행하려면 어떻게 하는지에 대해
+메뉴 순서를 서술하세요.
+	프로젝트 생성 : 솔루션 우클릭 -> 추가 -> 새 프로젝트
+	두 프로젝트 실행 : 솔루션 우클릭 -> 속성 -> 공용 속성 -> 시작 프로젝트 -> 여러 개의 시작 프로젝트에서 작업을 시작으로 바꾸어줍니다.
+
+7. using System 과 using static System.Console 선언하는 이유를 서술하세요.
+	예를 들어 System.Console.WriteLine("ASDF"); 란 코드가 있을 때,
+	using System을 해당 코드에 있는 namespace 위에 선언해주어 System. 을 생략할 수 있고,
+	using static System.Console을 위와 같이 namespace 위에 선언해주어 System.Console. 을 생략할 수 있습니다.
+	static은 정적변수로 메모리에 할당합니다.
+
+8. 이름 : 주현영
+   나이 : 32
+   키 : 167cm
+   직업 : 영화배우 및 개그우먼
+위의 내용을 C# 코드로 작성하세요.
+숫자가 혼합된 경우 한번은 문자 + 숫자로,
+또 다른 한번은 $표시를 이용해서 출력하세요.
+
+
+using static System.Console;
+/*
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+namespace TestPrj
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Write("이름 : "+"주현영\n");
+            WriteLine("나이 : " + 32);
+            WriteLine("키 : " + 167 + "cm");
+            WriteLine("직업 : "+"영화배우 및 개그우먼");
+        }
+    }
+}
+
+
+
+using static System.Console;
+/*
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+namespace TestPrj
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Write("이름 : ");WriteLine("주현영");
+            WriteLine($"나이 : {32}");
+            WriteLine($"키 : {167}cm");
+            Write("직업 : "); WriteLine("영화배우 및 개그우먼");
+        }
+    }
+}
+

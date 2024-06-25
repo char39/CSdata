@@ -1,0 +1,69 @@
+1.
+할인 마켓에서 바겐세일 중이다.
+3500원을 가지고 크림빵(500원), 새우깡(700원), 콜라(400원)을 사려고 한다.
+잔돈을 하나도 남기지 않고 세가지 물건을 하나 이상 구매할 때의 경우의 수를 나타내세요.
+
+int money = 3500;
+int cr = 500, sh = 700, co = 400;
+
+Console.WriteLine($"현재 당신이 소유하고 있는 금액 : {money}");
+
+for (int a = 1; a <= (money/cr); a++)
+{
+    for (int b = 1; b <= (money/sh); b++)
+    {
+        for (int c = 1; c <= (money/co); c++)
+        {
+            if (a*cr + b*sh + c*co == money)
+                Console.WriteLine($"크림빵 {a}개, 새우깡 {b}개, 콜라 {c}개");
+        }
+    }
+}
+
+
+2.
+길이 10인 배열을 선언하고 총 10개의 정수를 입력받아서,
+홀수와 짝수를 구분지어 출력하는 프로그램을 작성해보자.
+일단 홀수부터 출력하고 짝수를 출력하도록 하자.
+단, 10개의 정수는 Main함수 내에서 입력받도록 한다.
+
+실행 예)
+	정수를 10번 입력하세요.
+	1 2 3 4 5 6 7 8 9 10
+	
+	홀수출력 : 1,3,5,7,9
+
+int[] number = new int[10];
+for (int i = 0; i < 10; i++)
+    number[i] = Int32.Parse(Console.ReadLine());
+Console.Write("홀수 출력 : ");
+for (int i = 0; i < 10; i++)
+{
+    if (number[i] % 2 != 0)
+        Console.Write($"{number[i]} ");
+}
+Console.Write("\n짝수 출력 : ");
+for (int i = 0; i < 10; i++)
+{
+    if (number[i] % 2 == 0)
+        Console.Write($"{number[i]} ");
+}
+
+
+3. 
+프로그램 사용자로부터 10진수 형태로 정수를 하나 입력 받은 다음,
+이를 2진수로 변환해서 출력하는 프로그램을 작성해보자.
+
+Console.Write("10진수 정수를 입력하세요 : ");
+int input = Int32.Parse(Console.ReadLine());
+string output = Convert.ToString(input,2).PadLeft(8,'0');
+Console.Write($"10진수 정수를 2진수로 출력 : {output}\n");
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+정수 입력 : 3
+홀수 출력 : 3
+
+정수 입력 : 2
+짝수 출력 : 2
+
+정수입력 : -77
+절대값 : 77
+
+
+int num1, num2, num3;
+string str1, str2, str3;
+Console.Write("정수 입력 : "); num1 = Convert.ToInt32(Console.ReadLine());
+str1 = (num1 % 2 == 0) ? $"짝수 출력 : {num1}" : $"홀수 출력 : {num1}";
+Console.WriteLine(str1);
+
+Console.Write("정수 입력 : "); num2 = Convert.ToInt32(Console.ReadLine());
+str2 = (num2 % 2 == 0) ? $"짝수 출력 : {num2}" : $"홀수 출력 : {num2}";
+Console.WriteLine(str2);
+
+Console.Write("정수 입력 : "); num3 = Convert.ToInt32(Console.ReadLine());
+str3 = (num3 < 0) ? $"절대값 : {-num3}" : $"절대값 : {num3}";
+Console.WriteLine(str3);

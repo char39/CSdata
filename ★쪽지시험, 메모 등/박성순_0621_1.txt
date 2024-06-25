@@ -1,0 +1,18 @@
+1.
+구구단을 2~9단까지의 결과값을
+2차원 배열로 채운뒤,
+채운 2차원 배열 안의 결과값을 출력하세요.
+
+실행 예)
+2 4 6 8 10 12 14 ...
+
+int[,] gugu = new int[8, 9];
+for (int i = 0; i < gugu.GetLength(0); i++) 
+{
+    for (int j = 0; j < gugu.GetLength(1); j++)
+    {
+        gugu[i, j] = (i + 2) * (j + 1);
+        Console.Write($"{gugu[i, j],3} ");
+    }
+    Console.WriteLine();
+}
