@@ -17,15 +17,15 @@ namespace CsharpMidTest
             {
                 if (i == 0)
                 {
-                    Lotto[i] = Ran.Next(1, 46);
+                    Lotto[i] = Ran.Next(1, 7);
                 }
                 else
                 {
-                    Lotto[i] = Ran.Next(1, 46);
+                    Lotto[i] = Ran.Next(1, 7);
                     for (int j = 0; j < i; j++)
                     {
                         while (Lotto[i] == Lotto[j])
-                            Lotto[i] = Ran.Next(1, 46);
+                            Lotto[i] = Ran.Next(1, 7);
                     }
                 }
             }
