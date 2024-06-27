@@ -1,0 +1,19 @@
+랜덤값 1에서 100까지 1차원 배열에 저장한 후
+2의 배수와 6의 배수를 출력
+
+Random random = new Random();
+
+int[] ran = new int[100];
+for (int i = 0; i < 100; i++)
+    ran[i] = random.Next(1, 101);
+for (int i = 0; i < 100; i++)
+{
+    if ((ran[i] % 2 == 0) && (ran[i] % 6 == 0))
+        Console.WriteLine($"{ran[i],3} : 2, 6의 배수");
+    else if (ran[i] % 2 == 0)
+        Console.WriteLine($"{ran[i],3} : 2의 배수");
+    else if (ran[i] % 6 == 0)
+        Console.WriteLine($"{ran[i],3} : 6의 배수");
+}
+
+

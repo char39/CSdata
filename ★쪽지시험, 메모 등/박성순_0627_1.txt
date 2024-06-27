@@ -1,0 +1,21 @@
+적 Enemy 만들기
+캐릭터 : 좀비
+애니메이션 타입 : 메카님 방식 중 Humanoid
+동작 : 플레이어를 추적 한다.
+	추적 범위를 벗어나면 idle(쉬는상태)
+	동작의 애니메이션 구현
+플레이어와 가까우면 Attack(공격) 동작을 구현.
+총알에 5번 맞으면 좀비가 사망함
+총알에 맞을 때 BloodEffect 구현
+
+CrossHair Aim Point
+
+
+
+애니메이션 컴포넌트에
+	Legacy는 Animation
+	Generic, Humanoid는 Animator로 나타남
+	
+	애니메이션 작업하고
+	패키지매니저에서 ai navigation설치
+		좀비 컴포넌에 nav mesh agent 추가

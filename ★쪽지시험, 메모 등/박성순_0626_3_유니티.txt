@@ -1,0 +1,38 @@
+Invoke(메서드명, 시간);
+원하는 시간 간격만큼 메서드 호출
+
+
+1. Scene 이동과 UI 다루기
+	StartScene > PlayScene > EndScene
+	빌드, 배포
+	  StartScene에 MainCamera 우클시 Align With View
+	  누르면 씬에 보이는 화면을 메인카메라가 이동
+	  에셋 추가하고
+	UI 캔버스, 판넬추가
+	rect transform에서 위치사이즈변경
+	03images\textures_UI\menu_mainTitle에서
+	텍스쳐 타입 sprite(2d and ui)로 바꾸기
+	디폴트에서 pc바꾸고 오버라이드
+	  판넬에서 우클 버튼생성, 이미지 들고오기
+	  나가기버튼 복붙
+상단에 File BuildSetting 건들고
+	uimanager에 코드 만들어서 넣고
+	각 버튼들에 코드작성후 버튼에서 버튼컴포넌트에서 세팅
+
+2. 재장전 애니메이션
+	총알카운트, 리로드확인 변수로 리로드 함수 만들기
+
+3. 총기 교체 숫자키 1,2,3 누를때 총기 교체 애니메이션
+	에셋 추가
+	ak47 FBX에서 추가, m4a1도 추가후 위치조정
+	그리고 mesh renderer 샷건빼고 조정
+	C#스크립트 WeaponChange 추가
+
+
+
+
+
+
+
+
+
