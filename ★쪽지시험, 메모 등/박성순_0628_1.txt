@@ -1,0 +1,48 @@
+
+
+총알에 맞을 때 BloodEffect 구현
+	어제에 이어서 zombiedamage 스크립트 변경
+	bullettag 충돌시 옵젝추가
+
+UI도 같이 구현
+Enemy 머리 위에 HPBar 구현
+	좀비 옵젝에 ui, 캔버스 추가
+		캔버스 컴포넌에서 render mode에서
+		world space는 특정 옵젝에 ui같은것을 구현하고 싶을때
+		screen space는 화면에 구현
+	스크립트 좀비데미지, 좀비컨트롤, 총알컨트롤 3개 수정
+	
+
+6/28일은 Skeleton 캐릭터로 처음부터 사망까지 구현
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
