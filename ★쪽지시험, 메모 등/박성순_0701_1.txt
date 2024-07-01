@@ -1,0 +1,21 @@
+저번시간에 좀비가 3초마다 총 10마리 제한해서 생성했음.
+이번엔 스켈레톤을 5초마다 총 5마리 제한해서 생성
+	몬스터는 8초마다 총 3마리 제한 생성
+
+플레이어 hp바UI 생성
+
+
+
+
+Quaternion 쿼터니온 : 유니티에서 회전을 나타내는 타입
+
+transform.position = new Vector3(0, 10f, 0);
+transform.rotation = new Quaternion(0, 0, 0, 0);
+		// 4차원 복소수
+분명하게 유니티 인스펙트 트랜스폼은 컴포넌 rotation을
+Vector3로 x,y,z를 받는다
+사실 이것은 Quaternion 타입이 직관적이지 않아서(어려워서)
+유니티 인스펙트창에서 ratation값을 Vector3로
+다루도록 유니티를 만든 개발자들이 배려를 한것이라..
+
+
