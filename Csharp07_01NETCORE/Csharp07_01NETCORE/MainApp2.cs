@@ -173,5 +173,58 @@ namespace Csharp07_01NETCORE
         //}
 
         #endregion
+
+        #region 가변 길이의 인수 혹은 가변 길이의 매개변수 params
+        //// params 가변 길이(몇개의 인수나 매개변수가 올지 모를때)
+        //static int Sum(params int[] args)
+        //{
+        //    int sum = 0;
+        //    foreach (int arg in args)
+        //    {
+        //        sum += arg;
+        //    }
+        //    return sum;
+        //}
+        //public static void Main()
+        //{
+        //    int total = 0;
+        //    total = Sum(1, 2);
+        //    Console.WriteLine(total);
+        //    total = Sum(1, 2, 3, 4, 5, 6);
+        //    Console.WriteLine(total);
+        //    total = Sum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        //    Console.WriteLine(total);
+
+        //}
+
+        #endregion
+        #region 로컬 함수
+        ////로컬 함수는 메서드 안에서 선언되고 메서드 안에서 사용되는 특별한 함수
+        ////클래스 멤버가 아니기 때문에 메서드가 아니라 함수라고 부른다.
+
+        //static string ToLowerToString(string input)
+        //{
+        //    var arr = input.ToCharArray();
+        //    for (int i = 0; i < arr.Length; i++)
+        //    {
+        //        arr[i] = ToLowerChar(i);
+        //    }
+        //    char ToLowerChar(int i) //메서드 안에서만 사용되는 로컬함수
+        //    {
+        //        if (arr[i] < 65 || arr[i] > 90) // 65~90    A~Z의 아스키코드
+        //            return arr[i];
+        //        else
+        //            return (char)(arr[i] + 32); // 97~122   a~z의 아스키코드
+        //    }
+        //    return new string(arr);
+        //}
+        //public static void Main()
+        //{
+        //    Console.WriteLine(ToLowerToString("Hello"));
+        //}
+
+        #endregion
+
+
     }
 }
