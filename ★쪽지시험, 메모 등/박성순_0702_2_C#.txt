@@ -1,0 +1,60 @@
+생성자, 소멸자가 있다.
+객체생성은 생성자가 담당, 객체소멸은 소멸자가 담당
+클래스명이랑 같고, 반환형이 없다. 생성자는 객체 생성시 자동 호출된다.
+생성자가 하나도 없더라도, 매개변수가 없는 기본 생성자는
+자동으로 정의되어 호출된다.
+
+다만, 매개변수가 있는 생성자를 만들면,
+매개변수가 없는 생성자를 만들어줘야 된다.
+
+다만 C#에서 메모리 수거는, 가비지컬렉터가 알아서 한다.
+소멸자가 그닥 필요한진 모르겠음.
+
+
+internal은 같은 프로그램 내에서만 접근 가능
+구조체는 값 형식, 클래스는 참조 형식
+
+object oriented programming :
+(OOP) 객체지향 프로그래밍
+코드를 이용하여 객체를 만들고, 객체 간의 상호작용을 통해
+로직을 구성하는 프로그래밍 방법
+
+객체 : 속성과 기능(메서드)을 가지는 독립적인 단위,
+	클래스의 인스턴스
+클래스 : 객체를 만들기 위한 틀
+
+
+
+환경 변수 사용하기
+P317
+
+Microsoft (R) Visual C# 대화형 컴파일러 버전 4.10.0-3.24312.19 ()
+'CSharpInteractive.rsp'에서 컨텍스트를 로드하는 중입니다.
+자세한 내용을 보려면 "#help"를 입력하세요.
+> Environment.SystemDirectory
+"C:\\Windows\\system32"
+> Environment.Version
+[8.0.6]
+> Environment.OSVersion
+[Microsoft Windows NT 10.0.19045.0]
+> Environment.MachineName
+"401-09"
+> Environment.UserName
+"YONSAI"
+> Environment.CurrentDirectory
+"C:\\Users\\YONSAI"
+> Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+"C:\\Users\\YONSAI\\Documents"
+> 
+
+
+
+
+
+
+
+
+
+
+
+
