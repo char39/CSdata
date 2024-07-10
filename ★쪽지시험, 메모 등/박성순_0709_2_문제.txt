@@ -22,7 +22,7 @@
 		(3)은 값 형식이다.
 
 5. 다음 코드를 컴파일 및 실행이 가능하도록 수정하세요.
-	★답 : GetFahrenheit() 앞의 readonly를 없애면 된다.
+	★답 : 
 
 struct ACSetting
 {

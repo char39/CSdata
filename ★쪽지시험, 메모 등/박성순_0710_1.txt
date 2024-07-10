@@ -1,0 +1,32 @@
+드래그, 드롭 관련 컴포넌트 상속
+
+
+public class JoyStick : MonoBehaviour, IDragHandler, IDropHandler
+{
+    public void OnDrag(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnDrop(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
+    }
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
+}
+
+모바일 2D게임
+터치, 조이스틱
+테스트 : PC
+
+배경 이미지 무한루프
+순서 이미지 Sorting
+PC에서 모바일 환경에 맞게 테스트 후에 출시
+테스트 : 카메라 밖에 나가지 않게 조이스틱 구현
