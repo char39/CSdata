@@ -10,7 +10,7 @@ namespace Csharp07_10NETCORE
     {
         static void Main()
         {
-            
+            Console.WriteLine("Hello World!");
         }
     }
 }

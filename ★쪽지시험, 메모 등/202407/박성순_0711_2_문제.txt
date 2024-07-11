@@ -11,7 +11,7 @@
         Double.Parse(num1);
         Int32.Parse(num2);
         Int64.Parse(num3);
-        Single.Parse(num4);we
+        Single.Parse(num4);
 
 3. 다음 스크립트에서 Run 메서드 실행시 콘솔에 뜨는 문자열은 무엇인가요?
 public void Run()
