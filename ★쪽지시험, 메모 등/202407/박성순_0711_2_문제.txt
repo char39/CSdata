@@ -1,0 +1,44 @@
+1. 다음은 무엇에 관한 설명인가요?
+    한정자를 사용하여 특정 개체가 아니라 형식 자체에 속하는 정적 멤버를 선언할 수 있습니다.
+    한정자는 클래스, 필드, 메서드, 속성, 연산자, 이벤트 및 생성자와 함께 사용할 수 있지만 인덱서, 종료자 또는 클래스 이외의 형식에는 사용할 수 없습니다.
+    ★답 : 
+        static
+
+2. 문자열을 숫자로 변환하는 메서드의 이름을 적으세요.
+    double, int, long, float 각 형식에 맞게
+    ★답 :
+        아래는 .net 프레임워크 기준
+        Double.Parse(num1);
+        Int32.Parse(num2);
+        Int64.Parse(num3);
+        Single.Parse(num4);
+
+3. 다음 스크립트에서 Run 메서드 실행시 콘솔에 뜨는 문자열은 무엇인가요?
+public void Run()
+{
+    Console.Write(Question);
+}
+public bool Question()
+{
+    bool isA = true;
+    bool isB = false;
+    bool isC = true;
+    bool isD = false;
+    return !(((isA && isC) || isB) && ((isA && isB) == isD) == true);
+}
+    ★답 : 
+        false
+
+4. enum 키워드에 대해 간단히 설명해주세요.
+    ★답 :
+        주로 분류를 위해 사용된다.
+        아이템 종류나 내 현재 행동 상태처럼 여러 개의 값을 갖지 않고 분류할 수 있을 때 쓰며,
+        그 결과 데이터의 무결성을 얻을 수 있으며 코드의 가독성도 높아질 수 있었다.
+
+5. 다음 중 namespace에 대한 설명으로 틀린 것은?
+    (1) 관련 개체 집합을 포함하는 범위를 선언하는 데 사용된다.
+    (2) 고유한 네임스페이스를 선언하면 대규모 프로그래밍 프로젝트에서 클래스 및 메서드 이름의 범위를 제어할 수 있다.
+    (3) using 키워드 뒤에서 namespace를 써서 사용할 수 있다.
+    (4) class 안에서 namespace가 정의된다.
+    ★답 :
+        (3)번. 네임스페이스를 써서 사용할 수 없다.
