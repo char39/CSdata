@@ -1,0 +1,27 @@
+1. 다음 코드에서 NameCard 클래스의
+    GetAge(), SetAge(), GetName(), SetName() 메서드들을
+    프로퍼티로 변경하여 작성하세요.
+    ★답 :
+
+namespace Csharp07_12NETCORE
+{
+    class NameCard
+    {
+        private int age;
+        private string name;
+        public int Age {get; set;}
+        public string? Name {get; set;} = "이름 없음";
+    }
+    internal class Test
+    {
+        public static void Main()
+        {
+            NameCard MyCard = new NameCard()
+            {
+                Age = 24, Name = "박성순"
+            };
+            Console.WriteLine($"Age : {MyCard.Age}");
+            Console.WriteLine($"Name : {MyCard.Name}");
+        }
+    }
+}
