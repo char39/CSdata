@@ -1,0 +1,44 @@
+1.  다음 프로그램을 무명 형식을 사용하여 다음과 같은 결과를 출력하도록 하세요.
+    ★답 : 
+        internal class Program
+        {
+            static void Main()
+            {
+                var nameCard = new {Name = "박상현", Age = 17};
+                Console.WriteLine("이름 : {0}, 나이 : {1}", nameCard.Name, nameCard.Age);
+
+                var complex = new {Real = 3, Imaginary = -12};
+                Console.WriteLine("Real : {0}, Imaginary : {1}", complex.Real, complex.Imaginary);
+            }
+        }
+
+2. 
+    // 점수를 각각 출력하고 합계를 구하고 평균을 구하기
+    int sum = 0;
+    for (int i = 0; i < scores.Length; i++)
+    {
+        Console.WriteLine($"{i + 1}번 점수 : {scores[i]}");
+        sum += scores[i];
+    }
+    Console.WriteLine($"점수 합계 : {sum}");
+    Console.WriteLine($"점수 평균 : {sum / scores.Length}");
+
+3.
+    static void Main()
+    {
+        // 2단부터 9단까지 결과값을 2차원 배열에 넣어 출력.
+        // [행][열] 행에 8개의 단, 9개의 결과값
+        // 0,0은 2단, 1번째
+        // 7,8은 9단, 9번째
+
+        int[,] dan = new int[8, 9];
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                dan[i, j] = (i + 2) * (j + 1);
+                Console.Write($"{dan[i, j].ToString().PadLeft(2)} ");
+            }
+            Console.WriteLine();
+        }
+    }
