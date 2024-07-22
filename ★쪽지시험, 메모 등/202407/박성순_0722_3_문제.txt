@@ -1,0 +1,20 @@
+1. 다음 코드의 출력 결과는 무엇일까요?
+    ★답 :
+        Queue는 선입선출을 하기에 1, 2, 3, 4, 5 순으로 출력됩니다.
+
+2. 다음과 같은 결과를 출력하도록 아래의 코드를 완성하세요.
+    회사 : Microsoft
+    URL : www.microsoft.com
+    ★답 :
+        Hashtable ht = new Hashtable();
+        ht["회사"] = "Microsoft";
+        ht["URL"] = "www.microsoft.com";
+        Console.WriteLine($"회사 : {ht["회사"]}\nURL : {ht["URL"]}");
+
+3. 다음 코드의 출력 결과는 무엇일까요?
+    ★답 :
+        Stack은 후입선출을 하기에 5, 4, 3, 2, 1 순으로 출력됩니다.
+        
+4. 다음 배열 선언 문장 중 올바르지 않은 것을 고르세요.
+    ★답 :
+        (1). int 배열에서 string값을 할당할 수 없다.
