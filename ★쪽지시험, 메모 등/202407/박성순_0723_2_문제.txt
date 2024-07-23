@@ -1,0 +1,15 @@
+1. 다음 코드에서 문제를 찾고, 그 원인을 설명하세요.
+    ★답 :
+        Queue<int> queue2 = new Queue<int>();
+        queue2.Enqueue(10);
+        queue2.Enqueue("한글");
+        queue2.Enqueue(3.14);
+
+        자료형을 int로 지정해놓고 다른 자료형들을 넣었기에 오류가 발생함.
+        자료형을 전부 int로 바꾸어주면 해결.
+
+
+2. 다음 코드에서 [1]에 들어갈 내용은 무엇입니까?
+    ★답 :
+        <string, string>
+

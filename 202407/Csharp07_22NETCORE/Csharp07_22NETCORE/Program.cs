@@ -199,15 +199,37 @@ namespace Csharp07_22NETCORE
         }
     }
     */
-
+    /*  7. Dictionary
     internal class Program
     {
         static void Main(string[] args)
         {
+            Dictionary<string, string> dic = [];
+            dic["하나"] = "One";
+            dic["둘"] = "Two";
+            dic["셋"] = "Three";
+            Console.WriteLine(dic["하나"]);
+            Console.WriteLine(dic["둘"]);
+            Console.WriteLine(dic["셋"]);
+
+            Dictionary<string, string> dic2 = [];
+            dic2["하나"] = "1";
+            dic2["둘"] = "2";
+            dic2["셋"] = "3";
+            Console.WriteLine(dic2["하나"]);
+            Console.WriteLine(dic2["둘"]);
+            Console.WriteLine(dic2["셋"]);
+        }
+    } */
+
+    
+    internal class Program
+    {
+        static void Main()
+        {
 
         }
     }
-
 
 
 }
