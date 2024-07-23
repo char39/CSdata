@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                              ReadMe.md 필독!                               //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
 /*  ★ static void Main() ★
 namespace CSharp
 {
@@ -907,7 +913,12 @@ namespace CSharp
 */
 
 #endregion
+#region 9. 
 
+
+
+
+#endregion
 
 
 #endregion
