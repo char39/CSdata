@@ -1,0 +1,18 @@
+1. 아래 작성된 코드의 클래스로 객체를 생성하는데,
+    int형 배열을 출력할 수 있게 Indexer, Length 프로퍼티를 만들고,
+    foreach() 로도 출력할 수 있게 작성하세요.
+
+class MyList 
+{
+  private int[] array;
+  int position = -1; //0이 초기값이라서 
+   public MyList() 
+   {
+            
+    array = new int[5];
+           
+   }
+}   
+
+    답 :
+    
