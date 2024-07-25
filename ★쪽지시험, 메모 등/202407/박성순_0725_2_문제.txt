@@ -1,0 +1,56 @@
+1.  출력 결과가 다음과 같이 나오도록 다음 코드에 익명 메서드를 추가하여 완성하세요.
+    결과 :
+        7
+        2
+    답 :
+        internal class Program
+        {
+            delegate int MyDelegate(int a, int b);
+
+            static void Main()
+            {
+                MyDelegate Callback;
+                Callback = delegate (int a, int b)
+                {
+                    return a + b;
+                };
+                Console.WriteLine(Callback(3, 4));
+                Callback = delegate (int a, int b)
+                {
+                    return a - b;
+                };
+                Console.WriteLine(Callback(7, 5));
+            }
+        }
+    
+2.  출력 결과가 다음과 같이 나오도록 다음 코드에 이벤트 처리기를 추가하세요.
+    결과 :
+        축하합니다! 30번째 고객 이벤트에 당첨되셨습니다.
+    답 :
+        delegate void MyDelegate(int a);
+
+        class Market
+        {
+            public event MyDelegate CustomerEvent;
+            public void BuySomeThing(int CustomerNo)
+            {
+                if (CustomerNo == 30)
+                    CustomerEvent(CustomerNo);
+            }
+        }
+
+        internal class Program
+        {
+            static public void MyHandler(int message)
+            {
+                Console.WriteLine("축하합니다! " + message + "번째 고객 이벤트에 당첨되셨습니다.");
+            }
+
+            static void Main()
+            {
+                Market market = new();
+                market.CustomerEvent += new MyDelegate(MyHandler);
+                for (int customerNo = 0; customerNo < 100; customerNo += 10)
+                    market.BuySomeThing(customerNo);
+            }
+        }

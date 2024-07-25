@@ -57,11 +57,11 @@ namespace Csharp07_25NETCORE
             {
                 for (j = 0; j < DataSet.Length - (i + 1); j++)      // 위와 같은 내용이나, 하나의 값이 정렬된 회 수마다 앞의 값은 비교할 필요가 없기 때문.
                 {
-                    if (compare(DataSet[j], DataSet[j + 1]) > 0)
+                    if (compare(DataSet[j], DataSet[j + 1]) > 0)    // 비교한 값이 0보다 크면
                     {
-                        temp = DataSet[j + 1];
-                        DataSet[j + 1] = DataSet[j];
-                        DataSet[j] = temp;
+                        temp = DataSet[j + 1];                      // 임시변수에 뒤의 값을 저장
+                        DataSet[j + 1] = DataSet[j];                // 뒤의 값을 앞의 값으로 변경
+                        DataSet[j] = temp;                          // 앞의 값을 임시변수에 저장한 뒤 뒤의 값으로 변경
                     }
                 }
             }
@@ -189,23 +189,11 @@ namespace Csharp07_25NETCORE
             notifier.EventOccured("RPG");
         }
     }*/
-
+    /*  델리게이트 익명 예제
     delegate int Compare(int a, int b);
 
     internal class Program
     {
-        static int AscendCompare(int x, int y)  // 오름차순으로 정렬하는 메서드
-        {
-            if (x > y) return 1;
-            else if (x == y) return 0;
-            else return -1;
-        }
-        static int DecendCompare(int x, int y)  // 내림차순으로 정렬하는 메서드
-        {
-            if (x < y) return 1;
-            else if (x == y) return 0;
-            else return -1;
-        }
         static void BubbleSort(int[] DataSet, Compare compare)  // 오름, 내림차순으로 정렬하는 메서드를 참조하여 모든 배열값을 정렬함. 
         {
             int i, j, temp;                                         // 배열 index값을 사용하는 i, j를 선언, 임시변수 선언.
@@ -213,11 +201,11 @@ namespace Csharp07_25NETCORE
             {
                 for (j = 0; j < DataSet.Length - (i + 1); j++)      // 위와 같은 내용이나, 하나의 값이 정렬된 회 수마다 앞의 값은 비교할 필요가 없기 때문.
                 {
-                    if (compare(DataSet[j], DataSet[j + 1]) > 0)
+                    if (compare(DataSet[j], DataSet[j + 1]) > 0)    // 비교한 값이 0보다 크면
                     {
-                        temp = DataSet[j + 1];
-                        DataSet[j + 1] = DataSet[j];
-                        DataSet[j] = temp;
+                        temp = DataSet[j + 1];                      // 임시변수에 뒤의 값을 저장
+                        DataSet[j + 1] = DataSet[j];                // 뒤의 값을 앞의 값으로 변경
+                        DataSet[j] = temp;                          // 앞의 값을 임시변수에 저장한 뒤 뒤의 값으로 변경
                     }
                 }
             }
@@ -225,25 +213,114 @@ namespace Csharp07_25NETCORE
 
         static void Main()
         {
-            int[] numbers = { 2, 8, 5, 7, 3, 9, 1 };
+            int[] array_int = { 3, 7, 4, 2, 10 };
+            WriteAll(ref array_int);
 
-            foreach(int num in numbers)         // 모든 배열값 출력
-                Console.Write($"{num} ");       //
-            Console.WriteLine();                //
+            Console.WriteLine("익명의 함수로 오름차순 정렬 실행.");
+            BubbleSort(array_int, delegate (int a, int b)
+            {
+                if (a > b) return 1;
+                else if (a == b) return 0;
+                else return -1;
+            });
+            WriteAll(ref array_int);
 
-            BubbleSort(numbers, AscendCompare); // 오름차순으로 모든 배열값 정렬
-            
-            foreach(int num in numbers)         // 모든 배열값 출력
-                Console.Write($"{num} ");       //
-            Console.WriteLine();                //
+            Console.WriteLine("익명의 함수로 내림차순 정렬 실행.");
+            BubbleSort(array_int, delegate (int a, int b)
+            {
+                if (a < b) return 1;
+                else if (a == b) return 0;
+                else return -1;
+            });
+            WriteAll(ref array_int);
 
-            BubbleSort(numbers, DecendCompare); // 내림차순으로 모든 배열값 정렬
-            
-            foreach(int num in numbers)         // 모든 배열값 출력
-                Console.Write($"{num} ");       //
-            Console.WriteLine();                //
+            static void WriteAll<T>(ref T[] array)      // 모든 배열 값들을 출력하는 로컬 함수
+            {
+                foreach (var arr in array)
+                    Console.Write($"{arr} ");
+                Console.WriteLine();
+            }
+        }
+    }*/
+    /*  델리게이트 익명 예제2
+    delegate int Calculator(int a, int b);  // 반환형이 int이고 매개변수가 int형인 메서드를 참조할 수 있는 대리자 선언.
+
+    internal class Program
+    {
+        static void Main()
+        {
+            Calculator cal;                 // 대리자 객체 생성
+            cal = delegate (int a, int b)   // 대리자 객체에 익명 메서드를 대입
+            {
+                return a + b;                  
+            };
+            Console.WriteLine(cal(3, 6));   // 대리자 객체 호출
+
+            cal = delegate (int a, int b)   // 대리자 객체에 익명 메서드를 대입
+            {
+                return a - b;               
+            };
+            Console.WriteLine(cal(3, 6));   // 대리자 객체 호출
+        }
+    }*/
+    /*  델리게이트 이벤트 예제
+    delegate void EventHandler(string message);     // 대리자 선언
+
+    class MyNotifier
+    {
+        public event EventHandler SomeThingHappened;    // 이벤트 선언
+        public void DoSomeThingHappened(int number)     // 이벤트 발생 메서드
+        {
+            int temp = number % 10;
+            if (temp != 0 && temp % 3 == 0)
+            {
+                SomeThingHappened(string.Format($"{number} : 짝"));
+            }
         }
     }
 
-    
+    internal class Program
+    {
+        static public void MyHandler(string message)        // 이벤트 핸들러 메서드
+        {
+            Console.WriteLine(message);                // 이벤트 메시지 출력
+        }
+
+        static void Main()
+        {
+            MyNotifier myNotifier = new();              // 이벤트 객체 생성
+            myNotifier.SomeThingHappened += new EventHandler(MyHandler);    // 이벤트 핸들러 등록
+            for (int i = 0; i < 30; i++)
+                myNotifier.DoSomeThingHappened(i);
+        }
+    } */
+
+    delegate void MyDelegate(int a);
+
+    class Market
+    {
+        public event MyDelegate CustomerEvent;
+        public void BuySomeThing(int CustomerNo)
+        {
+            if (CustomerNo == 30)
+                CustomerEvent(CustomerNo);
+        }
+    }
+
+    internal class Program
+    {
+        static public void MyHandler(int message)
+        {
+            Console.WriteLine("축하합니다! " + message + "번째 고객 이벤트에 당첨되셨습니다.");
+        }
+
+        static void Main()
+        {
+            Market market = new();
+            market.CustomerEvent += new MyDelegate(MyHandler);
+            for (int customerNo = 0; customerNo < 100; customerNo += 10)
+                market.BuySomeThing(customerNo);
+        }
+    }
+
 }
