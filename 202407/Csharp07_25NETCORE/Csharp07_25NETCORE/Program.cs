@@ -294,7 +294,7 @@ namespace Csharp07_25NETCORE
                 myNotifier.DoSomeThingHappened(i);
         }
     } */
-
+    /*  델리게이트 이벤트 문제
     delegate void MyDelegate(int a);
 
     class Market
@@ -321,6 +321,13 @@ namespace Csharp07_25NETCORE
             for (int customerNo = 0; customerNo < 100; customerNo += 10)
                 market.BuySomeThing(customerNo);
         }
-    }
+    }*/
 
+    internal class Program
+    {
+        static void Main()
+        {
+            
+        }
+    }
 }
