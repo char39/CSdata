@@ -190,11 +190,60 @@ namespace Csharp07_25NETCORE
         }
     }*/
 
+    delegate int Compare(int a, int b);
+
     internal class Program
     {
+        static int AscendCompare(int x, int y)  // 오름차순으로 정렬하는 메서드
+        {
+            if (x > y) return 1;
+            else if (x == y) return 0;
+            else return -1;
+        }
+        static int DecendCompare(int x, int y)  // 내림차순으로 정렬하는 메서드
+        {
+            if (x < y) return 1;
+            else if (x == y) return 0;
+            else return -1;
+        }
+        static void BubbleSort(int[] DataSet, Compare compare)  // 오름, 내림차순으로 정렬하는 메서드를 참조하여 모든 배열값을 정렬함. 
+        {
+            int i, j, temp;                                         // 배열 index값을 사용하는 i, j를 선언, 임시변수 선언.
+            for (i = 0; i < DataSet.Length - 1; i++)                // 배열길이의 1을 빼는 이유는 (index 0)의 값이 (index max)까지 이동을 하려면 마지막 배열 값은 사용할 필요가 없기 때문.
+            {
+                for (j = 0; j < DataSet.Length - (i + 1); j++)      // 위와 같은 내용이나, 하나의 값이 정렬된 회 수마다 앞의 값은 비교할 필요가 없기 때문.
+                {
+                    if (compare(DataSet[j], DataSet[j + 1]) > 0)
+                    {
+                        temp = DataSet[j + 1];
+                        DataSet[j + 1] = DataSet[j];
+                        DataSet[j] = temp;
+                    }
+                }
+            }
+        }
+
         static void Main()
         {
+            int[] numbers = { 2, 8, 5, 7, 3, 9, 1 };
 
+            foreach(int num in numbers)         // 모든 배열값 출력
+                Console.Write($"{num} ");       //
+            Console.WriteLine();                //
+
+            BubbleSort(numbers, AscendCompare); // 오름차순으로 모든 배열값 정렬
+            
+            foreach(int num in numbers)         // 모든 배열값 출력
+                Console.Write($"{num} ");       //
+            Console.WriteLine();                //
+
+            BubbleSort(numbers, DecendCompare); // 내림차순으로 모든 배열값 정렬
+            
+            foreach(int num in numbers)         // 모든 배열값 출력
+                Console.Write($"{num} ");       //
+            Console.WriteLine();                //
         }
     }
+
+    
 }
