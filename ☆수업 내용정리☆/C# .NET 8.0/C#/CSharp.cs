@@ -32,7 +32,6 @@ namespace CSharp
 */
 
 #region ★ C# 기초 ★   」(￣▽￣」)
-
 #region 1. Console.WriteLine() [p64~67]
 
 /*  1.1 WriteLine()의 이스케이프 시퀀스(Escape Sequence) :
@@ -50,6 +49,7 @@ namespace CSharp
             Console.WriteLine("{0}, {1}, {2}", var1, var2, var3);
             Console.WriteLine("{0, 10}, {1, 10}, {2, 10}", var1, var2, var3);
             Console.WriteLine($"{var1}, {var2}, {var3}");
+
 */
 
 #endregion
@@ -102,6 +102,7 @@ namespace CSharp
             const int var1 = 100;                   // var1은 100으로 고정. 변경 불가
             const float var2 = 3.14f;               // var2는 3.14로 고정. 변경 불가
             const string var3 = "Hello, World!";    // var3은 "Hello, World!"로 고정. 변경 불가
+
 */
 
 #endregion
@@ -133,6 +134,7 @@ namespace CSharp
             int var1 = 100;
             byte var2 = byte.Parse(var1);        // var1을 byte로 변환
             string var3 = string.Parse(var1);    // var1을 string으로 변환
+
 */
 
 #endregion
@@ -178,6 +180,7 @@ namespace CSharp
         long var2 = 100_000_000_000;
             언더스코어는 숫자 사이에 위치할 수 있으며, 숫자의 시작과 끝에 위치할 수 없음.
             주로 가독성을 높이기 위해 사용하며, 컴파일 시 무시됨.
+
 */
 
 #endregion
@@ -374,17 +377,18 @@ namespace CSharp
 
         5.15.1 다음 항목별로 우선순위가 높음 :
             괄호(), 증감++, --, 단항+, -, !, ~, 캐스트, new, sizeof, typeof, is, as
-            산술*, /, %, 산술+, -
-            시프트<<, >>
-            관계<, <=, >, >=
-            관계==, !=
-            비트AND&
-            비트XOR^
-            비트OR|
-            논리AND&&
-            논리OR||
-            조건?:
-            대입=, +=, -=, *=, /=, %=, &=, ^=, |=, <<=, >>=
+            산술 *, /, %
+            산술 +, -
+            시프트 <<, >>
+            관계 <, <=, >, >=
+            관계 ==, !=
+            비트 AND &
+            비트 XOR ^
+            비트 OR |
+            논리 AND &&
+            논리 OR ||
+            조건 ? :
+            대입 =, +=, -=, *=, /=, %=, &=, ^=, |=, <<=, >>=
 
 */
 
@@ -966,21 +970,236 @@ namespace CSharp
 */
 
 #endregion
-
 #endregion
 
 #region ★ C# 활용 ★   ( • ᴗ - ) ✧
+#region 1. .NET API (dotNET Application Programming Interface) [p280~284]
 
-#region 1. C# 프로그램 구조 [p12~13]
+/*  1.1 .NET API란 :
+        .NET Framework에서 제공하는 클래스, 인터페이스, 구조체, 델리게이트, 열거형 등의 집합
+        .NET API를 사용하여 프로그램 개발
 
+    1.2 .NET API 사용법 :
+        1.2.1 using 문 :
+            using System; : System 네임스페이스 사용
+            using System.Collections.Generic; : System.Collections.Generic 네임스페이스 사용
+            using System.Linq; : System.Linq 네임스페이스 사용
+            using System.Text; : System.Text 네임스페이스 사용
+            using System.Threading.Tasks; : System.Threading.Tasks 네임스페이스 사용
+
+        1.2.2 .NET API 사용 예시 :
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using System.Text;
+            using System.Threading.Tasks;
+            using static System.Console;            // Console 클래스의 정적 멤버를 사용하기 위해 using static 사용
+
+            namespace ConsoleApp1
+            {
+                class Program
+                {
+                    static void Main(string[] args)
+                    {
+                        Console.WriteLine("Hello World!");  // using System; 을 사용하여 Console.WriteLine() 사용
+                        WriteLine("Hello World!");          // using static System.Console; 을 사용하여 WriteLine() 사용
+                    }
+                }
+            }
+
+        1.2.3 .NET API 주요 네임스페이스 :
+            System : 기본적인 데이터 형식, 예외 처리, 이벤트 처리, 파일 및 데이터 입출력, 문자열 처리 등의 클래스 제공
+            System.Collections.Generic : 제네릭 컬렉션 클래스 제공
+            System.Linq : LINQ(Language Integrated Query)를 사용하여 데이터 질의 기능 제공
+            System.Text : 문자열 처리, 문자 인코딩, 디코딩, 문자 집합 등의 클래스 제공
+            System.Threading.Tasks : 비동기 프로그래밍을 위한 클래스 제공
+
+    1.3 nameof 연산자 :
+        변수, 형식, 멤버의 이름을 문자열로 반환
+        nameof(변수명), nameof(형식명), nameof(멤버명)
+        주로 디버깅, 예외 처리, 리플렉션 등에 사용하며, 문자열 리터럴을 사용할 때 오타를 방지함.
+        문자열로 반환되기 때문에 리팩토링 시에도 이름이 변경되어도 코드를 수정할 필요가 없음
+
+        1.4.1 nameof 연산자 예시 :
+            using System;
+            using static System.Console;
+
+            namespace ConsoleApp1
+            {
+                class Program
+                {
+                    static void Main(string[] args)
+                    {
+                        int num = 100;
+                        WriteLine(nameof(num));         // num 출력
+                        WriteLine(nameof(Console));     // Console 출력
+                        WriteLine(nameof(WriteLine));   // WriteLine 출력
+                    }
+                }
+            }
+
+*/
+
+#endregion
+#region 2. 구조체 (Struct) [p285~298]
+
+/*  2.1 구조체란 :
+        클래스와 유사한 데이터 형식
+        클래스와 달리 상속, 인터페이스, 생성자, 소멸자, 인덱서, 이벤트, 대리자, 속성, 메서드, 필드, 프로퍼티 등을 가질 수 없음
+        구조체는 값 형식이며, 클래스는 참조 형식 (값 형식은 스택에 저장, 참조 형식은 힙에 저장)
+        주로 간단한 데이터 형식을 정의할 때 사용하며, 하나의 구조체로 여러 인스턴스를 생성하여 사용 가능
+        여러 인스턴스 생성 시 각 인스턴스는 서로 독립적이며, 하나의 인스턴스를 변경해도 다른 인스턴스에 영향을 주지 않음
+        그 이유는 값 형식이기 때문에 각 인스턴스는 서로 다른 메모리 공간에 저장되기 때문
+        (클래스는 참조 형식이기 때문에 인스턴스가 생성될 때 힙에 저장되며, 인스턴스는 참조를 공유하기 때문에 하나의 인스턴스를 변경하면 다른 인스턴스에 영향을 줌)
+
+    2.2 구조체 선언 :
+        namespace 네임스페이스명
+        {
+            struct 구조체명
+            {
+                멤버;
+            }
+        }
+
+        2.2.1 구조체 선언 예시 :
+            namespace ConsoleApp1
+            {
+                struct Point
+                {
+                    public int x;
+                    public int y;
+                }
+            }
+    
+    2.3 구조체 인스턴스 생성 :
+        구조체명 변수명 = new 구조체명();
+
+        2.3.1 구조체 인스턴스 생성 예시 :
+            Point point = new Point();
+            point.x = 10;
+            point.y = 20;
+
+    2.4 구조체 배열 :
+        구조체명[] 배열명 = new 구조체명[길이];
+
+        2.4.1 구조체 배열 예시 :
+            namespace ConsoleApp1
+            {
+                struct Point
+                {
+                    public int x;
+                    public int y;
+                }
+
+                class Program
+                {
+                    static void Main(string[] args)
+                    {
+                        Point[] points = new Point[3];
+                        points[0].x = 10;
+                        points[0].y = 20;
+                        points[1].x = 30;
+                        points[1].y = 40;
+                        points[2].x = 50;
+                        points[2].y = 60;
+                    }
+                }
+            }
+    
+    2.5 구조체 매개변수 :
+        구조체를 매개변수로 전달할 때 값 형식이기 때문에 값이 복사되어 전달됨
+        값이 복사되어 전달되기 때문에 함수 내에서 구조체의 값을 변경해도 호출자에게 영향을 주지 않음
+
+        2.5.1 예시 :
+            namespace ConsoleApp1
+            {
+                struct Point
+                {
+                    public int x;
+                    public int y;
+                }
+
+                class Program
+                {
+                    static void Main(string[] args)
+                    {
+                        int x = 100, y = 200;
+                        PrintPoint(x, y);       // x, y 값 전달
+
+                        Point point = new Point();
+                        point.x = 10;
+                        point.y = 20;
+                        PrintPoint(point);      // 구조체 변수인 point의 복사본이 전달
+                        
+                    }
+
+                    static void PrintPoint(int x, int y)    // 오버로드 1
+                    {
+                        Console.WriteLine($"{x}, {y}");                 // x, y 값 출력
+                    }
+
+                    static void PrintPoint(Point point)     // 오버로드 2
+                    {
+                        Console.WriteLine($"{point.x}, {point.y}");     // point 구조체의 x, y 값 출력
+                    }
+                }
+            }
+        
+    2.6 내장형 구조체 :
+        C#에서 제공하는 내장형 구조체
+        System 네임스페이스에 정의되어 있음
+
+        2.6.1 내장형 구조체 종류 :
+            DateTime : 날짜와 시간을 나타내는 구조체
+            TimeSpan : 시간 간격을 나타내는 구조체
+            Guid : 고유 식별자를 나타내는 구조체
+            Version : 버전 정보를 나타내는 구조체
+            Point : 2차원 좌표를 나타내는 구조체
+            Size : 너비와 높이를 나타내는 구조체
+            Rectangle : 사각형을 나타내는 구조체
+            Color : 색상을 나타내는 구조체
+            Font : 글꼴을 나타내는 구조체
+            등등...
+
+            2.6.1.1 내장형 구조체 예시 :
+                using System;
+
+                namespace ConsoleApp1
+                {
+                    class Program
+                    {
+                        static void Main(string[] args)
+                        {
+                            DateTime dateTime = new DateTime(2021, 1, 1);     // DateTime 구조체 인스턴스 생성
+                            Console.WriteLine(dateTime);                      // 2021-01-01 00:00:00 출력
+                        }
+                    }
+                }
+            
+            2.6.1.2 내장형 구조체 Guid 예시 :
+                using System;
+
+                namespace ConsoleApp1
+                {
+                    class Program
+                    {
+                        static void Main(string[] args)
+                        {
+                            Guid guid = Guid.NewGuid();      // Guid 구조체 인스턴스 생성
+                            Console.WriteLine(guid);         // 고유 식별자 출력. 실행할 때마다 값이 다름. ex) 1b4e28ba-2fa1-4e28-b185-3a4f5c91db2e
+                            Console.WriteLine(guid);         // 고유 식별자 출력. 고유한 값이므로 윗줄과 동일한 값이 출력됨
+                        }
+                    }
+                }
+
+*/
+
+#endregion
+#region 3. 열거형 (Enum) [p299~308]
 
 
 
 #endregion
-
-
-
-
 
 
 
