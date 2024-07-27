@@ -31,7 +31,7 @@ namespace CSharp
     - Main() 메서드는 프로그램 내에 단 하나만 존재해야 함
 */
 
-#region ★ C# 정리 ★   」(￣▽￣」)
+#region ★ C# 기초 ★   」(￣▽￣」)
 
 #region 1. Console.WriteLine() [p64~67]
 
@@ -44,12 +44,12 @@ namespace CSharp
         {0, 10} : 10자리 확보 후 정렬
         {0, -10} : 10자리 확보 후 정렬(왼쪽 정렬)
 
-    1.3 서식 지정자 예시 :
-        int var1 = 100, var2 = 200, var3 = 300;
-        Console.WriteLine("Hello, World! + {0}", var1);
-        Console.WriteLine("{0}, {1}, {2}", var1, var2, var3);
-        Console.WriteLine("{0, 10}, {1, 10}, {2, 10}", var1, var2, var3);
-        Console.WriteLine($"{var1}, {var2}, {var3}");
+        1.2.1 서식 지정자 예시 :
+            int var1 = 100, var2 = 200, var3 = 300;
+            Console.WriteLine("Hello, World! + {0}", var1);
+            Console.WriteLine("{0}, {1}, {2}", var1, var2, var3);
+            Console.WriteLine("{0, 10}, {1, 10}, {2, 10}", var1, var2, var3);
+            Console.WriteLine($"{var1}, {var2}, {var3}");
 */
 
 #endregion
@@ -59,7 +59,12 @@ namespace CSharp
         byte(1), short(2), int(4), long(8), float(4), double(8), decimal(16)
         sbyte(1), ushort(2), uint(4), ulong(8)
 
-        2.1.1 최대값, 최소값 : 
+        2.1.1 예시 :
+            int var1 = 100;
+            float var2 = 3.14f;
+            decimal var3 = 3.14m;
+
+        2.1.2 최대값, 최소값 : 
             byte(0 ~ 255), sbyte(-128 ~ 127)
             short(-32,768 ~ 32,767), ushort(0 ~ 65,535)
             int(-2,147,483,648 ~ 2,147,483,647), uint(0 ~ 4,294,967,295)
@@ -72,8 +77,31 @@ namespace CSharp
     2.2 문자 데이터 형식 :
         char(2), string(가변)
 
+        2.2.1 예시 :
+            char var1 = 'A';
+            string var2 = "Hello, World!";
+
     2.3 논리 데이터 형식 :
         bool(1)
+
+        2.3.1 예시 :
+            bool var1 = true;
+
+    2.4 객체 데이터 형식 :
+        object(가변)
+
+        2.4.1 예시 :
+            object var1 = 100;                      // var1은 참조형 데이터형식으로, int형식 값의 주소를 저장
+            object var2 = 3.14;                     // var2는 참조형 데이터형식으로, float형식 값의 주소를 저장
+            object var3 = "Hello, World!";          // var3은 참조형 데이터형식으로, string형식 값의 주소를 저장
+
+    2.5 변하지 않는 데이터 형식 (상수) :
+        const 데이터형식 상수명 = 값;
+
+        2.5.1 예시 :
+            const int var1 = 100;                   // var1은 100으로 고정. 변경 불가
+            const float var2 = 3.14f;               // var2는 3.14로 고정. 변경 불가
+            const string var3 = "Hello, World!";    // var3은 "Hello, World!"로 고정. 변경 불가
 */
 
 #endregion
@@ -94,8 +122,8 @@ namespace CSharp
 
         3.3.1 예시 :
             int var1 = 100;
-            byte var2 = Convert.ToByte(var1);
-            string var3 = Convert.ToString(var1);
+            byte var2 = Convert.ToByte(var1);       // var1을 byte로 변환
+            string var3 = Convert.ToString(var1);   // var1을 string으로 변환
 
     3.4 ★ 형식 변환 .NET :
         byte.Parse(), short.Parse(), int.Parse(), long.Parse(), float.Parse()
@@ -103,8 +131,8 @@ namespace CSharp
 
         3.4.1 예시 :
             int var1 = 100;
-            byte var2 = byte.Parse(var1.ToString());
-            string var3 = int.Parse("100").ToString();
+            byte var2 = byte.Parse(var1);        // var1을 byte로 변환
+            string var3 = string.Parse(var1);    // var1을 string으로 변환
 */
 
 #endregion
@@ -117,9 +145,9 @@ namespace CSharp
 
         4.1.1 예시 :
             int var1 = 100;
-            Console.WriteLine(Convert.ToString(var1, 2));
-            Console.WriteLine(Convert.ToString(var1, 8));
-            Console.WriteLine(Convert.ToString(var1, 16));
+            Console.WriteLine(Convert.ToString(var1, 2));   // 1100100
+            Console.WriteLine(Convert.ToString(var1, 8));   // 144
+            Console.WriteLine(Convert.ToString(var1, 16));  // 64
 
     4.2 2진수, 8진수, 16진수 -> 10진수 변환 :
         Convert.ToInt32(2진수, 2)
@@ -127,10 +155,17 @@ namespace CSharp
         Convert.ToInt32(16진수, 16)
 
         4.2.1 예시 :
-            string var1 = "1100100";
-            Console.WriteLine(Convert.ToInt32(var1, 2));
-            Console.WriteLine(Convert.ToInt32(var1, 8));
-            Console.WriteLine(Convert.ToInt32(var1, 16));
+            string binary = "1010"; // 2진수
+            string octal = "12";    // 8진수
+            string hex = "A";       // 16진수
+
+            int decimalFromBinary = Convert.ToInt32(binary, 2);
+            int decimalFromOctal = Convert.ToInt32(octal, 8);
+            int decimalFromHex = Convert.ToInt32(hex, 16);
+
+            Console.WriteLine($"2진수 {binary} -> 10진수 {decimalFromBinary}"); // 2진수 1010 -> 10진수 10
+            Console.WriteLine($"8진수 {octal} -> 10진수 {decimalFromOctal}");   // 8진수 12 -> 10진수 10
+            Console.WriteLine($"16진수 {hex} -> 10진수 {decimalFromHex}");      // 16진수 A -> 10진수 10
     
     4.3 2진수, 8진수, 16진수 리터럴 : 
         2진수 : 0b, 8진수 : 0, 16진수 : 0x
@@ -174,8 +209,9 @@ namespace CSharp
         
         5.3.2 전위 연산자와 후위 연산자 :
             int var1 = 100;
-            int var2 = ++var1;  // 전위 연산자 : var1 = var1 + 1; var2 = var1;
-            int var3 = var1++;  // 후위 연산자 : var3 = var1; var1 = var1 + 1;
+            int var2 = 200;
+            Console.WriteLine(++var1);   // 전위 연산자 : 1 증가 후 var1 출력   // 101
+            Console.WriteLine(var2++);   // 후위 연산자 : var1 출력 후 1 증가   // 200
         
     5.4 산술 연산자 :
         +, -, *, /, %
@@ -189,11 +225,11 @@ namespace CSharp
 
         5.4.2 예시 :
             int var1 = 100, var2 = 200;
-            Console.WriteLine(var1 + var2);
-            Console.WriteLine(var1 - var2);
-            Console.WriteLine(var1 * var2);
-            Console.WriteLine(var1 / var2);
-            Console.WriteLine(var1 % var2);
+            Console.WriteLine(var1 + var2);     // 300
+            Console.WriteLine(var1 - var2);     // -100
+            Console.WriteLine(var1 * var2);     // 20000
+            Console.WriteLine(var1 / var2);     // 0  (int형이므로 소수점 이하 버림)
+            Console.WriteLine(var1 % var2);     // 100
     
     5.5 관계 연산자 :
         ==, !=, >, <, >=, <=
@@ -208,12 +244,12 @@ namespace CSharp
 
         5.5.2 예시 :
             int var1 = 100, var2 = 200;
-            Console.WriteLine(var1 == var2);
-            Console.WriteLine(var1 != var2);
-            Console.WriteLine(var1 > var2);
-            Console.WriteLine(var1 < var2);
-            Console.WriteLine(var1 >= var2);
-            Console.WriteLine(var1 <= var2);
+            Console.WriteLine(var1 == var2);    // False
+            Console.WriteLine(var1 != var2);    // True
+            Console.WriteLine(var1 > var2);     // False
+            Console.WriteLine(var1 < var2);     // True
+            Console.WriteLine(var1 >= var2);    // False
+            Console.WriteLine(var1 <= var2);    // True
         
 */
 
@@ -230,10 +266,10 @@ namespace CSharp
         
         5.6.2 예시 :
             bool var1 = true, var2 = false;
-            Console.WriteLine(var1 && var2);
-            Console.WriteLine(var1 || var2);
-            Console.WriteLine(!var1);
-            Console.WriteLine(!var2);
+            Console.WriteLine(var1 && var2);    // False
+            Console.WriteLine(var1 || var2);    // True
+            Console.WriteLine(!var1);           // False
+            Console.WriteLine(!var2);           // True
 
     5.7 비트 연산자 :
         &, |, ^, ~, <<, >>
@@ -242,26 +278,27 @@ namespace CSharp
             & : 두 비트가 모두 1일 때 1, 나머지 0
             | : 두 비트 중 하나라도 1일 때 1, 모두 0일 때 0
             ^ : 두 비트가 서로 다르면 1, 같으면 0
-            ~ : 비트 반전
+            ~ : 비트 반전.
             << : 비트를 왼쪽으로 이동
             >> : 비트를 오른쪽으로 이동
 
         5.7.2 예시 :
             int var1 = 100, var2 = 200;
-            Console.WriteLine(var1 & var2);
-            Console.WriteLine(var1 | var2);
-            Console.WriteLine(var1 ^ var2);
-            Console.WriteLine(~var1);
-            Console.WriteLine(var1 << 2);
-            Console.WriteLine(var1 >> 2);
+            Console.WriteLine(var1 & var2);     // 64   (100 & 200 : 0110 0100 & 1100 1000 = 0100 0000 = 64)
+            Console.WriteLine(var1 | var2);     // 236  (100 | 200 : 0110 0100 | 1100 1000 = 1110 1100 = 236)
+            Console.WriteLine(var1 ^ var2);     // 172  (100 ^ 200 : 0110 0100 ^ 1100 1000 = 1010 1100 = 172)
+            Console.WriteLine(~var1);           // -101 (100 : 0110 0100 -> 1001 1011 -> -101)
+            Console.WriteLine(var1 << 2);       // 400  (100 << 2 : 100 * 2^2 = 400)
+            Console.WriteLine(var1 >> 2);       // 25   (100 >> 2 : 100 / 2^2 = 25)
 
     5.8 조건 연산자 :
         조건식 ? 참일 때 값 : 거짓일 때 값
+        주로 if-else 문을 대체하여 사용
 
         5.8.1 예시 :
             int var1 = 100, var2 = 200;
             int var3 = (var1 > var2) ? var1 : var2;  // var1이 var2보다 크면 var1, 아니면 var2
-            Console.WriteLine(var3);
+            Console.WriteLine(var3);                 // 200
 
     5.9 시프트 연산자 :
         <<, >>
@@ -308,6 +345,16 @@ namespace CSharp
         5.13.1 예시 :
             int var1 = 100;
             Console.WriteLine(var1 is int);     // True
+        
+        5.13.2 foreach 문과 is 연산자 :
+            int[] arr = { 10, 20, 30, 40, 50 };     // 배열 선언 및 초기화
+            foreach (var i in arr)                  // foreach 문으로 배열 요소 출력
+            {
+                if (i is int)                           // i가 int형식이면 출력
+                {
+                    Console.WriteLine(i);               // 10, 20, 30, 40, 50
+                }
+            }
 
     5.14 as 연산자 :
         형식 변환 연산자와 유사하나, 변환 실패 시 null 반환
@@ -316,6 +363,11 @@ namespace CSharp
             object var1 = 100;
             int? var2 = var1 as int?;
             Console.WriteLine(var2);            // 100
+
+        5.14.2 예시 :
+            object var1 = 100;
+            string? var2 = var1 as string;
+            Console.WriteLine(var2);            // null
 
     5.15 연산자 우선순위 :
         위로 갈수록 우선순위가 높음, 같은 줄에서는 왼쪽으로 갈수록 우선순위가 높음.
@@ -482,7 +534,7 @@ namespace CSharp
                 {
                     break;
                 }
-                Console.WriteLine(i);
+                Console.WriteLine(i);       // 0, 1, 2, 3, 4
             }
 
     6.9 continue 분기문 :
@@ -495,7 +547,7 @@ namespace CSharp
                 {
                     continue;
                 }
-                Console.WriteLine(i);
+                Console.WriteLine(i);       // 0, 1, 2, 3, 4, 6, 7, 8, 9
             }
 
     6.10 return 분기문 :
@@ -515,12 +567,12 @@ namespace CSharp
 
         6.11.2 goto 분기문 예시 :
             int i = 0;
-            start:
-            Console.WriteLine(i);
-            i++;
-            if (i < 10)
+            start:                          // start 레이블
+            Console.WriteLine(i);               // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+            i++;                                // i 증가
+            if (i < 10)                         // i가 10보다 작으면
             {
-                goto start;
+                goto start;                 // start 레이블로 이동
             }
 
 */
@@ -576,6 +628,7 @@ namespace CSharp
 
     7.6 가변 배열 :
         데이터형식[][] 배열명 = new 데이터형식[길이][];
+        가변 배열은 3차원 배열까지 가능
 
         7.6.1 가변 배열 예시 :
             int[][] arr = new int[3][];
@@ -913,12 +966,26 @@ namespace CSharp
 */
 
 #endregion
-#region 9. 
+
+#endregion
+
+#region ★ C# 활용 ★   ( • ᴗ - ) ✧
+
+#region 1. C# 프로그램 구조 [p12~13]
 
 
 
 
 #endregion
+
+
+
+
+
+
+
+
+
 
 
 
