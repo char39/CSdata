@@ -1197,10 +1197,368 @@ namespace CSharp
 #endregion
 #region 3. 열거형 (Enum) [p299~308]
 
+/*  3.1 열거형이란 :
+        명명된 상수의 집합을 정의하는 데이터 형식으로, 각 상수는 기본적으로 정수형 값을 가짐
+        필요에 따라 정수형 값을 명시적으로 지정할 수 있으며, 기본적으로 0부터 시작하여 1씩 증가하는 값이 할당됨
+        
+        3.1.1 사용 이유 :
+            코드의 가독성을 높이고, 프로그램의 유지보수를 용이하게 하기 위해 사용
+            상수를 사용하여 프로그램의 가독성을 높이고, 상수의 값이 변경되어도 프로그램의 수정이 용이함
+            또한 열거형을 사용하면 값 리스트 여러 개를 하나의 이름으로 관리할 수 있다는 장점이 있음
+        
+    3.2 열거형 선언 :
+        enum [열거형명]
+        {
+            상수1,
+            상수2,
+            상수3,
+            ...
+        }
 
+        3.2.1 열거형 선언 예시 :
+            enum Day
+            {
+                Sunday,             // 0
+                Monday,             // 1
+                Tuesday,            // 2
+                Wednesday = 10,     // 10
+                Thursday,           // 11
+                Friday,             // 12
+                Saturday            // 13
+            }
+        
+        3.2.2 사용 예시 :
+            internal class Program
+            {
+                enum Day                            // 열거형 Day 선언
+                {
+                    Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+                }
+                static void Main()
+                {
+                    Day day = Day.Tuesday;                  // 열거형 변수 day 선언, Day.Tuesday값(2)으로 초기화
+                    Console.WriteLine(day);                 // Tuesday 출력
+                    Console.WriteLine((int)day);            // 0 출력
+                    Console.WriteLine(nameof(day));         // day 출력
+                    Console.WriteLine(nameof(Day.Tuesday)); // Tuesday 출력
+                }
+            }
+
+        3.2.3 switch 문과 열거형 :
+            switch 문에서 열거형을 사용할 때는 case 문에 열거형 상수를 사용
+            열거형 상수는 열거형명.상수명 형식으로 사용
+
+            internal class Program
+            {
+                enum Animal                                 // 열거형 Animal 선언
+                {
+                    Dog, Cat, Rabbit, Monkey
+                }
+                static void Main()
+                {
+                    Animal animal = Animal.Cat;             // 열거형 변수 animal 선언, Animal.Cat값(1)으로 초기화
+                    switch (animal)
+                    {
+                        case Animal.Dog:
+                            Console.WriteLine("강아지");
+                            break;
+                        case Animal.Cat:
+                            Console.WriteLine("고양이");
+                            break;
+                        case Animal.Rabbit:
+                            Console.WriteLine("토끼");
+                            break;
+                        case Animal.Monkey:
+                            Console.WriteLine("원숭이");
+                            break;
+                    }                                       // 고양이 출력
+                }
+
+*/
 
 #endregion
+#region 4. 클래스 {1} (Class) [p309~333]
 
+/*  4.1 클래스란 :
+        객체 지향 프로그래밍(OOP)의 기본 단위로, 데이터와 메서드를 하나로 묶은 사용자 정의 데이터 형식
+        클래스는 필드, 프로퍼티, 메서드, 이벤트, 인덱서, 생성자, 소멸자, 중첩 클래스, 중첩 구조체, 중첩 열거형 등을 가질 수 있음
+        클래스는 참조 형식이고, 힙에 저장되며, 인스턴스는 참조를 공유하기 때문에 하나의 인스턴스를 변경하면 다른 인스턴스에 영향을 줌
+        클래스는 new 연산자를 사용하여 인스턴스를 생성하고, 인스턴스는 힙에 저장되며, 인스턴스의 참조를 스택에 저장
+
+        4.1.1 객체와 인스턴스 :
+            클래스 (Class) : 객체를 만들기 위한 설계도
+            객체 (Object) : 클래스로 구현된 모든 대상으로, 클래스 타입으로 선언되었을 때 객체라고 부른다.
+            인스턴스 (Instance) : 객체 중 클래스를 바탕으로 실제로 생성된 것으로, 이 때부터 메모리에 할당되어 사용할 수 있는 상태가 된다.
+
+            4.1.1.1 유니티의 경우 :
+                Prefab : 게임 오브젝트의 원본 (템플릿)        // Prefab은 클래스는 아니지만 비슷한 역할을 함
+                GameObject : 게임 오브젝트의 인스턴스        // GameObject는 객체는 아니지만 비슷한 역할을 함
+            
+            4.1.1.2 예시 :
+                스크립트에서 동적 할당하여 사용하는 경우, 게임 오브젝트의 인스턴스를 생성하여 사용하는 것과 같음
+                using UnityEngine;
+                public class Example : MonoBehaviour
+                {
+                    public GameObject prefab;       // Prefab을 참조하기 위한 GameObject 변수 선언
+
+                    void Start()
+                    {
+                        GameObject instance = Instantiate(prefab);              // Prefab을 복제하여 인스턴스 생성
+                        instance.transform.position = new Vector3(0, 0, 0);     // 인스턴스의 위치를 변경
+                    }
+                }
+
+    4.2 클래스 선언 :
+        [접근제한자] [class] 클래스명
+        {
+            멤버;
+        }
+
+        4.2.1 선언과 할당 예시 :
+            class Car { }          // 클래스 선언
+            class Program
+            {
+                static void Main()
+                {
+                    Car car;          // 클래스 타입으로 선언. 인스턴스 생성 X
+                    car = new Car();  // 클래스 타입으로 할당. 인스턴스 생성 O
+                }
+            }
+        
+    4.3 클래스 레벨, 메서드 레벨의 차이 :
+        클래스 레벨의 멤버는 인스턴스 생성 없이 사용 가능
+        메서드 레벨의 멤버는 인스턴스 생성 후 사용 가능
+
+        4.3.1 클래스 레벨 :
+            클래스 레벨은 클래스 자체의 범위와 접근 제한자에 따라 외부에서 접근 가능 여부가 결정됨
+            클래스 레벨에서 정의된 멤버(변수, 메서드 등)는 클래스의 모든 인스턴스에서 공유됨
+            또한 클래스 레벨의 멤버는 static 키워드를 사용하여 정적 멤버로 선언할 수 있음
+        
+        4.3.2 메서드 레벨 :
+            메서드 레벨은 메서드 내부의 범위와 접근 제한자에 따라 외부에서 접근 가능 여부가 결정됨
+            메서드 레벨에서 정의된 멤버(변수, 메서드 등)는 메서드 내에서만 사용 가능
+            메서드 레벨의 멤버는 메서드가 호출될 때마다 새로 생성되며, 메서드가 종료되면 소멸됨
+
+        4.3.3 클래스 레벨, 메서드 레벨의 멤버 호출 :
+            public class Example
+            {
+                public static int classLevelVar = 10;                                   // 클래스 레벨의 정적 변수
+
+                public static void ClassLevelMethod()                                   // 클래스 레벨의 정적 메서드
+                {
+                    Console.WriteLine("class level method.");
+                }
+
+                public void InstanceMethod()                                        // 인스턴스 메서드
+                {
+                    int methodLevelVar = 20;                                        // 메서드 레벨의 변수
+                    Console.WriteLine("method level Var: " + methodLevelVar);
+                }
+            }
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Example.ClassLevelMethod();                                         // 클래스 레벨의 정적 메서드 호출
+                    
+                    Console.WriteLine("Class level Var: " + Example.classLevelVar);     // 클래스 레벨의 정적 변수 접근
+
+                    Example example = new Example();                                // 인스턴스 메서드 호출을 위한 인스턴스 생성
+                    example.InstanceMethod();                                       // 인스턴스 메서드 호출
+                }
+            }
+
+    4.4 클래스 시그니처 (Class Signature) :
+        클래스 시그니처는 클래스의 구조를 정의하는 것으로, 클래스의 접근 제한자, 클래스 키워드, 클래스 이름, 상속, 인터페이스 등을 포함
+
+        4.4.1 접근 제한자 :
+            public : 어떤 클래스에서도 접근 가능
+            protected : 동일 클래스 또는 파생 클래스에서만 접근 가능
+            internal : 동일 어셈블리(프로젝트)에서만 접근 가능
+            protected internal : 동일 어셈블리 또는 파생 클래스에서만 접근 가능
+            private : 동일 클래스 내에서만 접근 가능
+        
+        4.4.2 클래스 키워드 :
+            class :
+                클래스를 정의하는 키워드로, 첫 글자는 대문자로 작성하고, 축약형이 아닌 명사로 작성하고, 특정 접두사, 언더스코어(_)를 사용하지 않음
+                여러 단어로 구성된 경우 각 단어의 첫 글자는 대문자로 작성하고, 단어 사이에 공백을 사용하지 않음
+            abstract :
+                추상 클래스를 정의하는 키워드로, 추상 클래스는 인스턴스를 생성할 수 없으며, 추상 메서드를 포함할 수 있음
+            sealed :
+                클래스를 밀봉하는 키워드로, 상속을 금지하고, sealed 클래스는 더 이상 상속될 수 없음
+            static :
+                정적 클래스를 정의하는 키워드로, 정적 클래스는 인스턴스를 생성할 수 없으며, 정적 멤버만 포함할 수 있음
+            partial :
+                부분 클래스를 정의하는 키워드로, 여러 파일에 나누어 정의된 클래스를 하나로 합칠 때 사용
+            new :
+                메서드를 재정의하는 키워드로, 메서드를 재정의할 때 사용
+
+        4.4.3 클래스 이름 :
+            클래스의 이름을 정의하는 부분
+
+        4.4.4 상속, 인터페이스 :
+            클래스가 상속받는 클래스 또는 구현하는 인터페이스를 정의하는 부분
+
+        4.4.5 클래스 시그니처 예시 :
+            순서 : 접근 제한자, 클래스 키워드, 클래스 이름, 상속, 인터페이스
+            public class Example : Parent, IInterface
+            {
+                ...
+            }
+        
+        4.4.6 클래스의 주요 구성 요소 :
+            필드 (Field) : 클래스의 부품 역할을 하며, 클래스 내에 선언된 변수나 데이터를 담는 공간
+            프로퍼티 (Property) : 클래스의 필드에 접근하기 위한 메서드
+            메서드 (Method) : 클래스의 동작을 정의하는 함수
+            생성자 (Constructor) : 클래스의 인스턴스를 초기화하는 함수
+            소멸자 (Destructor) : 클래스의 인스턴스를 소멸하는 함수
+            
+    4.5 자주 사용하는 내장 클래스 :
+        C#에서 제공하는 자주 사용하는 내장 클래스
+        System 네임스페이스에 정의되어 있음
+
+        4.5.1 자주 사용하는 내장 클래스 종류 :
+            Console : 콘솔 입출력을 위한 클래스
+            Math : 수학 연산을 위한 클래스
+            Random : 난수 생성을 위한 클래스
+            DateTime : 날짜와 시간을 다루기 위한 클래스
+            TimeSpan : 시간 간격을 다루기 위한 클래스
+            String : 문자열을 다루기 위한 클래스
+            StringBuilder : 문자열을 동적으로 변경하기 위한 클래스
+            Array : 배열을 다루기 위한 클래스
+            List : 동적 배열을 다루기 위한 클래스
+            Dictionary : 키와 값으로 이루어진 데이터를 다루기 위한 클래스
+            Queue : 선입선출(FIFO) 방식의 데이터를 다루기 위한 클래스
+            Stack : 후입선출(LIFO) 방식의 데이터를 다루기 위한 클래스
+            등등...
+
+        4.5.2 자주 사용하는 내장 클래스 예시 :
+            using System;
+
+            namespace ConsoleApp1
+            {
+                class Program
+                {
+                    static void Main(string[] args)
+                    {
+                        Console.WriteLine("Hello World!");  // Console 클래스의 WriteLine() 메서드 사용
+                        int abs = Math.Abs(-10);            // Math 클래스의 Abs() 메서드 사용
+                        Console.WriteLine(abs);             // 10 출력
+                    }
+                }
+            }
+
+*/
+
+#endregion
+#region 4. 클래스 {2} (Class) [p309~333]
+
+/*  4.6 정규식 :
+        정규식(Regular Expression)은 특정 패턴을 기반으로 문자열을 검색, 일치, 추출, 대체하는 데 사용됨.
+        주로 문자열 검색 및 일치, 문자열 추출, 문자열 대체, 입력 유효성 검사, 문자열 분할 등에 사용됨
+        C#에서는 System.Text.RegularExpressions 네임스페이스의 Regex 클래스를 사용하여 정규식을 사용할 수 있음
+
+        4.6.1 정규식 패턴 :
+            ^ : 문자열의 시작
+            $ : 문자열의 끝
+            . : 임의의 문자
+            * : 0회 이상 반복
+            + : 1회 이상 반복
+            ? : 0회 또는 1회 반복
+            [] : 문자 집합
+            [^] : 부정 문자 집합
+            | : 또는
+            () : 그룹화
+            \d : 숫자
+            \D : 숫자가 아닌 문자
+            \s : 공백 문자
+            \S : 공백 문자가 아닌 문자
+            \w : 단어 문자
+            \W : 단어 문자가 아닌 문자
+
+        4.6.2 정규식 사용 방법 :
+            using System;
+            using System.Text.RegularExpressions;
+
+            class Program
+            {
+                static void Main()
+                {
+                    string input = "12345";                         // 입력 문자열
+                    string pattern = @"\d+";                        // 숫자 패턴
+                    bool isMatch = Regex.IsMatch(input, pattern);   // 정규식 패턴과 입력 문자열 일치 여부
+                    Console.WriteLine(isMatch);                     // True 출력
+                }
+            }
+
+        4.6.3 정규식 사용 예시 (Email 주소 검사) :
+            using System;
+            using System.Text.RegularExpressions;
+
+            class Program
+            {
+                static void Main()
+                {
+                    string email = "qwer123@gmail.com";                 // 이메일 주소
+                    string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";  // 이메일 주소 패턴
+                    bool isMatch = Regex.IsMatch(email, pattern);       // 정규식 패턴과 이메일 주소 일치 여부
+                    Console.WriteLine(isMatch);                         // True 출력
+                }
+            }
+
+    4.7 값 형식과 참조 형식 :
+        클래스나 구조체 같은 데이터 형식을 말할 때 값 형식과 참조 형식으로 구분하기도 함.
+
+        4.7.1 값 형식 :
+            값 형식은 스택 메모리에 저장되며, 변수에 값이 직접 저장됨
+            값 형식은 System.ValueType 클래스를 상속받음
+            값 형식은 int, float, double, char, bool, enum(열거형), struct(구조체) 등이 있음
+
+        4.7.2 참조 형식 :
+            참조 형식은 힙 메모리에 저장되며, 변수에는 값이 아닌 참조가 저장됨
+            참조 형식은 System.Object 클래스를 상속받음
+            참조 형식은 class(클래스), interface(인터페이스), delegate(대리자), string, object, dynamic 등이 있음
+
+        4.7.3 박싱(Boxing)과 언박싱(Unboxing) :
+            박싱은 값 형식을 참조 형식으로 변환하는 것
+            언박싱은 참조 형식을 값 형식으로 변환하는 것
+            박싱과 언박싱은 성능 저하를 일으킬 수 있으므로 필요할 때만 사용하는 것이 좋음
+
+            4.7.3.1 박싱(Boxing) :
+                int num = 10;                   // 값 형식 변수 num 선언
+                object obj = num;               // 박싱. 값 형식 변수 num을 참조 형식 변수 obj에 대입
+
+            4.7.3.2 언박싱(Unboxing) :
+                object obj = 20;                // 참조 형식 변수 obj 선언
+                int num = (int)obj;             // 언박싱. 참조 형식 변수 obj를 값 형식 변수 num에 대입
+
+        4.7.4 is 연산자로 형식비교 :
+            is 연산자는 참조 형식의 형식을 비교할 때 사용
+            is 연산자는 형식이 일치하면 true, 일치하지 않으면 false를 반환
+
+            4.7.4.1 예시 :
+                object obj = 10;                // 참조 형식 변수 obj 선언
+                if (obj is int)                 // obj가 int 형식인지 확인
+                {
+                    int num = (int)obj;         // obj를 int 형식으로 언박싱하여 값 형식 변수 num에 대입
+                    Console.WriteLine(num);     // num 출력
+                }
+        4.7.5 as 연산자로 형식변환 :
+            as 연산자는 참조 형식을 다른 참조 형식으로 변환할 때 사용
+            as 연산자는 형식이 일치하면 형변환을 수행하고, 일치하지 않으면 null을 반환
+
+            4.7.5.1 예시 :
+                object obj = 10;                // 참조 형식 변수 obj 선언
+                int? num = obj as int?;         // obj를 int? 형식으로 형변환하여 값 형식 변수 num에 대입
+                if (num != null)                // num이 null이 아닌지 확인
+                {
+                    Console.WriteLine(num);     // num 출력
+                }
+
+*/
+
+#endregion
 
 
 
