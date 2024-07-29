@@ -114,7 +114,7 @@ namespace Csharp07_29NETCORE
 
         }
     }  */
-
+    /*  쪽지시험 
     delegate void Calc(int[] x);
 
     internal class Program
@@ -134,13 +134,32 @@ namespace Csharp07_29NETCORE
             //     action.Invoke();
             // }
 
-            int[] array = { 11, 22, 33, 44, 55 };
-            Calc calc = (arrays) =>
-            {
-                foreach (int i in arrays)
-                    Console.WriteLine(i * i);
-            };
-            calc(array);
+            // int[] array = { 11, 22, 33, 44, 55 };
+            // Calc calc = (arrays) =>
+            // {
+            //     foreach (int i in arrays)
+            //         Console.WriteLine(i * i);
+            // };
+            // calc(array);
+
+            // int[] array = { 11, 22, 33, 44, 55 };
+            // foreach (int a in array)
+            // {
+            //     Action<int> action = (a) => Console.WriteLine(a * a);
+            //     action.Invoke(a);
+            // }
+        }
+    } */
+
+    public delegate float CustomDelegate(int a, int b);
+
+    internal class Program
+    {
+        static void Main()
+        {
+            CustomDelegate del = (x, y) => x / y;
+            Console.WriteLine("Result : " + del(10, 5));
         }
     }
+
 }

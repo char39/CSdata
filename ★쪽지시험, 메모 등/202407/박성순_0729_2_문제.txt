@@ -94,3 +94,38 @@
             }
         }
     }
+
+4. 다음 코드를 람다식으로 수정하세요.
+    문제 :
+    public delegate float CustomDelegate(int a, int b);
+    public class MyClass
+    {
+        public static float Divide(int a, int b)
+        {
+            return (float)a / b;
+        }
+    }
+
+    internal class Program
+    {
+        static void Main()
+        {
+            CustomDelegate del = MyClass.Divide;
+            float result = del(10, 5);
+            Console.WriteLine("Result : " + result);
+        }
+    }
+
+    답 :
+    public delegate float CustomDelegate(int a, int b);
+
+    internal class Program
+    {
+        static void Main()
+        {
+            CustomDelegate del = (x, y) => x / y;
+            Console.WriteLine("Result : " + del(10, 5));
+        }
+    }
+
+    
