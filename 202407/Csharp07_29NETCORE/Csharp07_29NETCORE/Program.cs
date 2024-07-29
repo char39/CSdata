@@ -42,7 +42,8 @@ namespace Csharp07_29NETCORE
             };
             Console.WriteLine(concat(args));
         }
-    } */
+    }
+    */    
     /*  람다식 Func, Action 
     class FriendList
     {
@@ -74,27 +75,37 @@ namespace Csharp07_29NETCORE
     {
         static void Main()
         {
-            // Func<int> funcInt = () => 10;
-            // Console.WriteLine($"funcInt() : {funcInt()}");
-            // Func<int, int> funcInts = (x) => x * 2;
-            // Console.WriteLine($"funcInts(4) : {funcInts(4)}");
-            // Func<double, double, double> funcDoubles = (x, y) => x / y;
-            // Console.WriteLine($"funcDoubles(15, 3) : {funcDoubles(15, 3)}");
+            Func<int> funcInt = () => 10;
+            Console.WriteLine($"funcInt() : {funcInt()}");
 
-            // Action act = () => Console.WriteLine("Action()");
-            // act();
+            Func<int, int> funcInts = (x) => x * 2;
+            Console.WriteLine($"funcInts(4) : {funcInts(4)}");
+
+            Func<double, double, double> funcDoubles = (x, y) => x / y;
+            Console.WriteLine($"funcDoubles(15, 3) : {funcDoubles(15, 3)}");
+
+            Action act = () => Console.WriteLine("Action()");
+            act();
             
-            // int result = 0;
-            // Action<int> actionInt = (x) => result = x * x;
-            // actionInt(3);
-            // Console.WriteLine("Result : " + result);
+            int result = 0;
+            Action<int> actionInt = (x) => result = x * x;
+            actionInt(3);
+            Console.WriteLine("Result : " + result);
 
-            // Action<double, double> actionDouble = (x, y) =>
-            // {
-            //     double pi = x / y;
-            //     Console.WriteLine($"Action<T1, T2> : ({x}, {y} : {pi})");
-            // };
-            // actionDouble(22.0f, 7.0f);
+            Action<double, double> actionDouble = (x, y) =>
+            {
+                double pi = x / y;
+                Console.WriteLine($"Action<T1, T2> : ({x}, {y} : {pi})");
+            };
+
+
+            Action<dynamic, dynamic> a_sum = (x, y) =>
+            {
+                Console.WriteLine($"x + y = {x + y}");
+            };
+            a_sum(5, 3);
+
+            actionDouble(22.0f, 7.0f);
 
             Console.WriteLine();
 
@@ -113,7 +124,7 @@ namespace Csharp07_29NETCORE
             friendList.PrintAll();
 
         }
-    }  */
+    } */
     /*  쪽지시험 
     delegate void Calc(int[] x);
 
@@ -150,14 +161,85 @@ namespace Csharp07_29NETCORE
             // }
         }
     } */
-
+    /*  dynamic을 활용한 일반화 메서드
     internal class Program
     {
         static void Main()
         {
-            Func<float, float, float> func_Divide = (x, y) => x / y;
-            Console.WriteLine($"func_Divide : {func_Divide(25, 5)}");
-        }
-    }
+            int[] arr1 = { 1, 2, 3, 4, 5 };
+            double[] arr2 = { 2.3, 4.5, 6.6, 7.7, 8.8 };
+            float[] arr3 = { 2.3f, 4.5f, 6.6f, 7.7f, 8.8f };
 
+            Console.WriteLine(Sum(arr1));
+            Console.WriteLine(Sum(arr2));
+            Console.WriteLine(Sum(arr3));
+            Console.WriteLine(Aver(arr1));
+            Console.WriteLine(Aver(arr2));
+            Console.WriteLine(Aver(arr3));
+        }
+        public static T? Sum<T>(T[] arrs)
+        {
+            //dynamic sum = 0;
+            T sum = default;
+            for (int i = 0; i < arrs.Length; i++)
+                sum += (dynamic)arrs[i];
+            return sum;
+        }
+        public static T? Aver<T>(T[] arrs)
+        {
+            T sum = default;
+            for (int i = 0; i < arrs.Length; i++)
+                sum += (dynamic)arrs[i];
+            return sum / (dynamic)arrs.Length;
+        }
+    } */
+    /*  익명 메소드  : 이름이 없는 메소드 익명의 함수 anonymous Method라 부른다.
+    delegate int Compare<T>(T a, T b);
+
+    internal class Program
+    {
+        static void BubbleSort<T>(T[] DataSet, Compare<T> compare) where T : IComparable<T>
+        {
+            int i, j;
+            T temp;
+            for (i = 0; i < DataSet.Length - 1; i++)
+            {
+                for (j = 0; j < DataSet.Length - (i + 1); j++)
+                {
+                    if (compare(DataSet[j], DataSet[j + 1]) > 0)    // 비교한 값이 0보다 크면
+                    {
+                        temp = DataSet[j + 1];                      // 임시변수에 뒤의 값을 저장
+                        DataSet[j + 1] = DataSet[j];                // 뒤의 값을 앞의 값으로 변경
+                        DataSet[j] = temp;                          // 앞의 값을 임시변수에 저장한 뒤 뒤의 값으로 변경
+                    }
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            int[] numbers = { 3, 7, 4, 2, 10 };
+            string[] words = { "Apple", "Banana", "Cherry" };
+
+            // 람다식을 사용한 예제
+            BubbleSort(numbers, (x, y) => x.CompareTo(y));
+            PrintArrs(numbers);
+
+            BubbleSort(numbers, (x, y) => -x.CompareTo(y));
+            PrintArrs(numbers);
+
+            // 익명 메서드를 사용한 예제
+            BubbleSort(numbers, delegate (int x, int y) { return x.CompareTo(y); });
+            PrintArrs(numbers);
+
+            BubbleSort(numbers, delegate (int x, int y) { return -x.CompareTo(y); });
+            PrintArrs(numbers);
+
+            static void PrintArrs(int[] numbers)
+            {
+                foreach (var i in numbers)
+                    Console.WriteLine(i);
+            }
+
+        }
+    } */
 }
