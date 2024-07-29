@@ -128,4 +128,13 @@
         }
     }
 
-    
+4.1 위 코드를 Func를 사용하여 작성하세요.
+    답 :
+    internal class Program
+    {
+        static void Main()
+        {
+            Func<float, float, float> func_Divide = (x, y) => x / y;
+            Console.WriteLine($"func_Divide : {func_Divide(25, 5)}");
+        }
+    }

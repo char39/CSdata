@@ -151,14 +151,12 @@ namespace Csharp07_29NETCORE
         }
     } */
 
-    public delegate float CustomDelegate(int a, int b);
-
     internal class Program
     {
         static void Main()
         {
-            CustomDelegate del = (x, y) => x / y;
-            Console.WriteLine("Result : " + del(10, 5));
+            Func<float, float, float> func_Divide = (x, y) => x / y;
+            Console.WriteLine($"func_Divide : {func_Divide(25, 5)}");
         }
     }
 
