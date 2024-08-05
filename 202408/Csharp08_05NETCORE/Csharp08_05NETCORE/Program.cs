@@ -96,8 +96,7 @@ namespace Csharp08_05NETCORE
 
         }
     }*/
-    
-    
+    /*  LinQ 방식 2
     class Profile
     {
         public string? Name { get; set; }
@@ -134,6 +133,35 @@ namespace Csharp08_05NETCORE
 
 
 
+        }
+    }*/
+
+    class Car
+    {
+        public int Cost { get; set; }
+        public int MaxSpeed { get; set; }
+    }
+
+    internal class Program
+    {
+        static void Main()
+        {
+            Car[] cars = 
+            {
+                new Car(){Cost = 56, MaxSpeed = 120},
+                new Car(){Cost = 70, MaxSpeed = 150},
+                new Car(){Cost = 45, MaxSpeed = 180},
+                new Car(){Cost = 32, MaxSpeed = 200},
+                new Car(){Cost = 82, MaxSpeed = 280},
+            };
+
+            var selected = from car in cars
+                            where car.Cost >= 50 && car.MaxSpeed >= 150
+                            orderby car.Cost ascending
+                            select car;
+            
+            foreach (Car c in selected)
+                Console.WriteLine(c.Cost + ", " + c.MaxSpeed);
         }
     }
 
