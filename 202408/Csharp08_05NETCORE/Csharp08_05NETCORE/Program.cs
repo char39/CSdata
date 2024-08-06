@@ -152,7 +152,7 @@ namespace Csharp08_05NETCORE
                 new Car(){Cost = 70, MaxSpeed = 150},
                 new Car(){Cost = 45, MaxSpeed = 180},
                 new Car(){Cost = 32, MaxSpeed = 200},
-                new Car(){Cost = 82, MaxSpeed = 280},
+                new Car(){Cost = 82, MaxSpeed = 280}, 
             };
 
             var selected = from car in cars
