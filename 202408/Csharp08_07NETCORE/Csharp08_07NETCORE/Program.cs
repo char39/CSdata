@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;      // Attribute 사용을 위해 추가
 
 namespace Csharp08_07NETCORE
 {
-    /*  Attribute 사용 예시
+    /*  Attribute 예시 1
     class MyClass
     {
         [Obsolete("\nNewMethod()를 사용해주세요.")]
@@ -50,12 +50,12 @@ namespace Csharp08_07NETCORE
             Trace.WriteLine("복숭아 먹고싶다");
         }
     } */
-
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]  // Attribute 사용 대상 및 허용 여부 설정
-    class History : Attribute           // Attribute 클래스 선언
+    /*  Attribute 예시 3 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]  // Attribute 사용 대상 및 허용 여부 설정
+    class History : Attribute
     {
         private string programmer;
-        public double Version { get; set; }
+        public float Version { get; set; }
         public string? Changes { get; set; }
         public History(string programmer)
         {
@@ -83,7 +83,25 @@ namespace Csharp08_07NETCORE
     {
         static void Main()
         {
+            Type type = typeof(MyClass);
+            Attribute[] attributes = Attribute.GetCustomAttributes(type);
 
+            Console.WriteLine("MyClass History Changed.");
+            foreach (Attribute attribute in attributes)
+            {
+                if (attribute is History h)
+                {
+                    Console.WriteLine($"Ver : {h.Version}, Programmer : {h.Programmer}, Change : {h.Changes}");
+                }
+            }
+        }
+    } */
+
+    internal class Program
+    {
+        static void Main()
+        {
+            
         }
     }
 
