@@ -97,11 +97,60 @@ namespace Csharp08_07NETCORE
         }
     } */
 
+    public class Student
+    {
+        public string? Name { get; set; }
+        public int Score { get; set; }
+    }
+
     internal class Program
     {
         static void Main()
         {
-            
+            List<Student> students = new List<Student>
+            {
+            new Student() { Name = "John", Score = 80 },
+            new Student() { Name = "Steve", Score = 99 },
+            new Student() { Name = "Bill", Score = 70 },
+            new Student() { Name = "Ram", Score = 90 },
+            new Student() { Name = "Ron", Score = 60 }
+            };
+
+            var sortA = from studentA in students
+                        where studentA.Score >= 80
+                        orderby studentA.Score descending
+                        select studentA;
+            var sortF = from studentF in students
+                        where studentF.Score < 80
+                        orderby studentF.Score ascending
+                        select studentF;
+            Console.WriteLine("80 이상");
+            foreach (var s in sortA)
+                Console.WriteLine($"  Name : {s.Name}\tScore : {s.Score}");
+
+            Console.WriteLine("80 미만");
+            foreach (var s in sortF)
+                Console.WriteLine($"  Name : {s.Name}\tScore : {s.Score}");
+
+
+
+            var sorted = students
+                .OrderByDescending(s => s.Score)
+                .GroupBy(s => s.Score >= 80)
+                .ToList();
+
+            Console.WriteLine("80 이상");
+            foreach (var s in sorted.FirstOrDefault(g => g.Key == true) ?? Enumerable.Empty<Student>())
+                Console.WriteLine($"  Name : {s.Name}\tScore : {s.Score}");
+
+            Console.WriteLine("80 미만");
+            foreach (var s in sorted.FirstOrDefault(g => g.Key == false) ?? Enumerable.Empty<Student>())
+                Console.WriteLine($"  Name : {s.Name}\tScore : {s.Score}");
+
+
+
+
+
         }
     }
 
