@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;  // .xlsx 포맷
 using System.IO;
+using NPOI.SS.Formula.Functions;
 
 
 namespace Csharp08_08
@@ -166,14 +167,96 @@ namespace Csharp08_08
             Newway(array, savePath);
         }
     } */
+/*  디렉토리 접근하여 파일 정보 불러오기
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine();
 
+            string directory;
+            if (args.Length < 1)
+                directory = ",";
+            else
+                directory = args[0];
+            Console.WriteLine($"{directory} > directory Info");
+            Console.WriteLine("- Directories : ");
+            var directories = (from dir in Directory.GetDirectories(directory)
+                               let info = new DirectoryInfo(dir)  // let은 LinQ에서 사용하는 변수 선언 키워드. LinQ의 var와 비슷한 역할을 함.
+                               select new
+                               {
+                                   Name = info.Name,
+                                   Attributes = info.Attributes
+                               }).ToList();
+            
+            foreach (var d in directories)
+                Console.WriteLine($"{d.Name} : {d.Attributes}");
 
+            Console.WriteLine("---Files : ");
+            var files = (from file in Directory.GetFiles(directory)
+                         let info = new FileInfo(file)
+                         select new
+                         {
+                             Name = info.Name,
+                             FileSize = info.Length,
+                             Attributes = info.Attributes
+                         }).ToList();
+
+            foreach (var f in files)
+                Console.WriteLine($"{f.Name} : {f.FileSize} : {f.Attributes}");
+
+            Console.WriteLine();
+        }
+    } */
 
     internal class Program
     {
-        static void Main()
+        static void OnWrongPathType(string type)
         {
-            
+            Console.WriteLine($"{type} is wrong type.");
+            return;
+        }
+
+        static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Usage : Csharp08_08.exe<Path>[Type:File/Directory]");
+                return;
+            }
+
+            string path = args[0];
+            string type = "File";
+            if (args.Length > 1)
+                type = args[1];
+
+            if (File.Exists(path) || Directory.Exists(path))
+            {
+                if (type == "File")
+                    File.SetLastWriteTime(path, DateTime.Now);
+                else if (type == "Directory")
+                    Directory.CreateDirectory(path);
+                else
+                {
+                    OnWrongPathType(path);
+                    return;
+                }
+                Console.WriteLine($"Updated   {path}   {type}");
+            }
+            else
+            {
+                if (type == "File")
+                    File.Create(path).Close();
+                else if (type == "Directory")
+                    Directory.CreateDirectory(path);
+                else
+                {
+                    OnWrongPathType(path);
+                    return;
+                }
+                Console.WriteLine($"Created   {path}   {type}");
+            }
         }
     }
+
 }
