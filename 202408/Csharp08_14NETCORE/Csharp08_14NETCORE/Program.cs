@@ -126,7 +126,8 @@ namespace Csharp08_14NETCORE
                 Console.WriteLine($"{scores[i],3}점 : {rankings[i]}등");
         }
     } */
-
+    
+    /*  문제 1.
     public class Solution
     {
         public string Solution_0(string originNum)
@@ -161,7 +162,7 @@ namespace Csharp08_14NETCORE
             string[] phone_number = ["01033334444", "021112222"];
 
             Solution sol = new();
-            
+
             Console.WriteLine($"{nameof(phone_number)}\treturn");
             for (int i = 0; i < phone_number.Length; i++)
                 Console.WriteLine($"\"{phone_number[i]}\"\t\"{sol.Solution_0(phone_number[i])}\"");
@@ -172,8 +173,30 @@ namespace Csharp08_14NETCORE
             for (int i = 0; i < phone_number.Length; i++)
                 Console.WriteLine($"\"{phone_number[i]}\"\t\"{sol.Solution_2(phone_number[i])}\"");
         }
+    } */
+
+    public class Solution
+    {
+        public string Solution_0(string my_string)
+        {
+            var vowels = new HashSet<char> { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
+            var result = new string(my_string.Where(c => !vowels.Contains(c)).ToArray());
+            return new string(result);
+        }
     }
 
+    internal class Program
+    {
+        static void Main()
+        {
+            string[] my_string = ["bus", "nice to meet you"];
+
+            Solution sol = new();
+            
+            Console.WriteLine(sol.Solution_0(my_string[0]));
+            Console.WriteLine(sol.Solution_0(my_string[1]));
+        }
+    }
 
 
 
