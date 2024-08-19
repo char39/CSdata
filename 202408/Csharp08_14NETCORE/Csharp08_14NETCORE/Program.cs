@@ -174,7 +174,7 @@ namespace Csharp08_14NETCORE
                 Console.WriteLine($"\"{phone_number[i]}\"\t\"{sol.Solution_2(phone_number[i])}\"");
         }
     } */
-
+    /*  문제 2.
     public class Solution
     {
         public string Solution_0(string my_string)
@@ -196,7 +196,7 @@ namespace Csharp08_14NETCORE
             Console.WriteLine(sol.Solution_0(my_string[0]));
             Console.WriteLine(sol.Solution_0(my_string[1]));
         }
-    }
+    } */
 
 
 
