@@ -1731,7 +1731,32 @@ namespace CSharp
             string.Format : 문자열을 형식화하는 메서드
             string.Join : 문자열 배열을 연결하는 메서드
         
+    5.3 StringBuilder 클래스 :
+        StringBuilder 클래스는 문자열을 동적으로 변경할 때 사용하는 클래스
+        문자열을 변경할 때마다 새로운 문자열을 생성하는 String 클래스와 달리, StringBuilder 클래스는 기존 문자열을 변경함
+        StringBuilder 클래스는 System.Text 네임스페이스에 정의되어 있음
 
+        5.3.1 StringBuilder 클래스 사용 방법 :
+            using System.Text;
+
+            class Program
+            {
+                static void Main()
+                {
+                    StringBuilder sb = new StringBuilder();       // StringBuilder 클래스 인스턴스 생성
+                    sb.Append("Hello ");                          // 문자열을 추가하여 저장
+                    sb.Append("World!");                          // 문자열을 추가하여 저장
+                    Console.WriteLine(sb);                        // Hello World! 출력
+                }
+            }
+
+        5.3.2 StringBuilder 클래스 주요 메서드 :
+            Append : 문자열을 추가하여 저장하는 메서드
+            Insert : 문자열을 삽입하여 저장하는 메서드
+            Remove : 문자열을 제거하여 저장하는 메서드
+            Replace : 문자열을 변경하여 저장하는 메서드
+            Clear : 문자열을 초기화하는 메서드
+            ToString : 문자열로 변환하는 메서드
 
 
 
@@ -1746,48 +1771,105 @@ namespace CSharp
 
 
 /* 클래스 생성자 소멸자 등 추후 정리
-                4.4.6.4.1 기본 생성자 :
-                    기본 생성자는 매개변수가 없는 생성자를 의미하며, 클래스의 필드를 초기화하는 역할을 함
-                    클래스에 생성자가 없으면 컴파일러가 자동으로 생성하며,
-                    클래스에 생성자가 하나라도 있으면 컴파일러가 기본 생성자를 자동으로 생성하지 않음
+    4.1 기본 생성자 :
+        기본 생성자는 매개변수가 없는 생성자를 의미하며, 클래스의 필드를 초기화하는 역할을 함
+        클래스에 생성자가 없으면 컴파일러가 자동으로 생성하며,
+        클래스에 생성자가 하나라도 있으면 컴파일러가 기본 생성자를 자동으로 생성하지 않음
+    
+    4.2 매개변수가 있는 생성자 :
+        클래스에 하나 이상의 매개변수가 있는 생성자를 정의함.
+        클래스의 필드를 초기화할 때 사용하며, 인스턴스 생성 시 매개변수를 전달하여 필드를 초기화할 수 있음
+
+    4.3 정적 생성자 :
+        클래스의 정적 멤버를 초기화하는 역할을 하는 생성자
+        정적 생성자는 인스턴스 생성자와 무관하게 클래스가 로드될 때 한 번만 호출되며, 정적 멤버를 초기화하는 역할을 함
+        따라서 인스턴스가 생성되지 않아도 정적 맴베를 초기화할 수 있음
+
+    4.4 복사 생성자 :
+        같은 클래스의 다른 인스턴스를 복사하여 새로운 인스턴스를 생성하는 생성자
+        복사 생성자는 반드시 명시적으로 정의해야 함.
+
+    4.5 생성자 체이닝 :
+        생성자에서 다른 생성자를 호출하는 방식으로, this 키워드를 사용하여 다른 생성자를 호출함
+        생성자 체이닝을 사용하면 중복되는 코드를 줄일 수 있음
+    
+    4.6 예시 :
+        class Car
+        {
+            public string name;
+            public int year;
+
+            public Car() { }                        // 기본 생성자. 생성자가 없다면 컴파일러가 자동으로 생성
+
+            public Car(string name)                 // 매개변수가 있는 생성자. name 필드 초기화
+            { this.name = name; }
+
+            static Car() { }                        // 정적 생성자. 정적 멤버 초기화
+
+            public Car(Car car)                     // 복사 생성자. 다른 인스턴스를 복사하여 새로운 인스턴스 생성
+            { this.name = car.name; this.year = car.year; }
+        }
+    
+    4.7 생성자 오버로드 :
+        생성자 오버로드는 하나의 클래스에 여러 개의 생성자를 정의하는 것
+        생성자 오버로드를 사용하면 다양한 매개변수를 전달하여 인스턴스를 생성할 수 있음
+
+    4.8 this() 생성자로 다른 생성자 호출 :
+        this() 생성자는 다른 생성자를 호출하는 역할을 함
+        this() 생성자를 사용하면 생성자 체이닝을 통해 다른 생성자를 호출할 수 있음. 생성자 포워딩이라고도 함
+
+        4.8.1 예시 (1) :
+            class Program
+            {
+                private string message = "Hello World!";                // 필드 선언
+
+                public Program() => Console.WriteLine(message);         // 생성자. 필드 출력
+                public Program(string message) : this() => Console.WriteLine(message);  // this() 생성자로 다른 생성자 호출
                 
-                4.4.6.4.2 매개변수가 있는 생성자 :
-                    클래스에 하나 이상의 매개변수가 있는 생성자를 정의함.
-                    클래스의 필드를 초기화할 때 사용하며, 인스턴스 생성 시 매개변수를 전달하여 필드를 초기화할 수 있음
+                static void Main(string[] args)
+                {
+                    Program program = new Program();                    // 기본 생성자 호출
+                    Program program1 = new Program("Hi!");              // this() 생성자 호출
+                }
+            }
+        
+        4.8.2 예시 (2) :
+            class Money
+            {
+                public Money() : this(1000) {}                                      // this() 생성자로 다른 생성자 호출
+                public Money(int money) => Console.WriteLine("Money: " + money);    // 생성자
+            }
 
-                4.4.6.4.3 정적 생성자 :
-                    클래스의 정적 멤버를 초기화하는 역할을 하는 생성자
-                    정적 생성자는 인스턴스 생성자와 무관하게 클래스가 로드될 때 한 번만 호출되며, 정적 멤버를 초기화하는 역할을 함
-                    따라서 인스턴스가 생성되지 않아도 정적 맴베를 초기화할 수 있음
+            internal class Program
+            {
+                static void Main(string[] args)
+                {
+                    Money money = new Money();              // this() 생성자 호출
+                    Money money1 = new Money(2000);         // 해당 생성자 호출
+                }
+            }
+    
+    4.9 생성자를 사용하여 읽기 전용 필드 초기화 :
+        읽기 전용 필드는 선언 시 또는 생성자에서 초기화할 수 있으며, 초기화 후에는 변경할 수 없음
+        생성자를 사용하여 읽기 전용 필드를 초기화할 때는 생성자에서 필드를 초기화하고, 읽기 전용으로 선언함
 
-                4.4.6.4.4 복사 생성자 :
-                    같은 클래스의 다른 인스턴스를 복사하여 새로운 인스턴스를 생성하는 생성자
-                    복사 생성자는 반드시 명시적으로 정의해야 함.
+        4.9.1 예시 :
+            class Program
+            {
+                private readonly string message;                    // 읽기 전용 필드 선언
 
-                4.4.6.4.5 생성자 체이닝 :
-                    생성자에서 다른 생성자를 호출하는 방식으로, this 키워드를 사용하여 다른 생성자를 호출함
-                    생성자 체이닝을 사용하면 중복되는 코드를 줄일 수 있음
-                
-                4.4.6.4.6 예시 :
-                    class Car
-                    {
-                        public string name;
-                        public int year;
+                public Program() => message = "Hello World!";       // 생성자에서 읽기 전용 필드 초기화
 
-                        public Car() { }                        // 기본 생성자. 생성자가 없다면 컴파일러가 자동으로 생성
+                static void Main(string[] args)
+                {
+                    Program program = new Program();                // 생성자 호출
+                    Console.WriteLine(program.message);             // 읽기 전용 필드 출력
+                }
+            }
+    
 
-                        public Car(string name)                 // 매개변수가 있는 생성자. name 필드 초기화
-                        { this.name = name; }
-
-                        static Car() { }                        // 정적 생성자. 정적 멤버 초기화
-
-                        public Car(Car car)                     // 복사 생성자. 다른 인스턴스를 복사하여 새로운 인스턴스 생성
-                        { this.name = car.name; this.year = car.year; }
-                    }
-                
-                4.4.6.4.7 생성자 오버로드 :
-                    생성자 오버로드는 하나의 클래스에 여러 개의 생성자를 정의하는 것
-                    생성자 오버로드를 사용하면 다양한 매개변수를 전달하여 인스턴스를 생성할 수 있음
+    5.1 소멸자 :
+        
 */
 
 
