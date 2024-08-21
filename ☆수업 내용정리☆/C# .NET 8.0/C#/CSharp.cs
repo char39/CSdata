@@ -1277,7 +1277,7 @@ namespace CSharp
 */
 
 #endregion
-#region 4. 클래스 {1} (Class) [p309~333]
+#region 4. 클래스 {1} (정의, 선언, 클래스와 메서드 레벨) [p309~333]
 
 /*  4.1 클래스란 :
         객체 지향 프로그래밍(OOP)의 기본 단위로, 데이터와 메서드를 하나로 묶은 사용자 정의 데이터 형식
@@ -1369,7 +1369,12 @@ namespace CSharp
                 }
             }
 
-    4.4 클래스 시그니처 (Class Signature) :
+*/
+
+#endregion
+#region 4. 클래스 {2} (클래스 시그니처) [p309~333]  ( •̀ o •́ )
+
+/*  4.4 클래스 시그니처 (Class Signature) :
         클래스 시그니처는 클래스의 구조를 정의하는 것으로, 클래스의 접근 제한자, 클래스 키워드, 클래스 이름, 상속, 인터페이스 등을 포함
 
         4.4.1 접근 제한자 :
@@ -1408,13 +1413,45 @@ namespace CSharp
             }
         
         4.4.6 클래스의 주요 구성 요소 :
-            필드 (Field) : 클래스의 부품 역할을 하며, 클래스 내에 선언된 변수나 데이터를 담는 공간
-            프로퍼티 (Property) : 클래스의 필드에 접근하기 위한 메서드
-            메서드 (Method) : 클래스의 동작을 정의하는 함수
-            생성자 (Constructor) : 클래스의 인스턴스를 초기화하는 함수
-            소멸자 (Destructor) : 클래스의 인스턴스를 소멸하는 함수
-            
-    4.5 자주 사용하는 내장 클래스 :
+            필드, 프로퍼티, 메서드, 생성자, 소멸자 등이 있음.
+
+            4.4.6.1 필드 (Field) :
+                클래스의 부품 역할을 하며, 클래스 내에 선언된 변수나 데이터를 담는 공간.
+
+                변수 (Variable) :
+                    클래스의 데이터를 저장하는 공간.
+                    변수는 선언 시 또는 생성자에서 초기화할 수 있으며, 초기화 후에 변경할 수 있음.
+                상수 (Constant) :
+                    클래스의 데이터를 상수로 저장하는 공간.
+                    상수 형식의 데이터는 반드시 초기화해야 하며, 초기화 후에는 변경할 수 없음.
+                읽기 전용 필드 (Readonly Field) :
+                    클래스의 데이터를 읽기 전용으로 저장하는 공간.
+                    읽기 전용 필드는 선언 시 또는 생성자에서 초기화할 수 있으며, 초기화 후에는 변경할 수 없음.
+                배열 (Array) :
+                    클래스의 데이터를 배열로 저장하는 공간으로, 동일한 데이터 형식의 여러 값을 저장할 수 있음.
+                기타 : 
+                    개체 (Object), 문자열 (String), 구조체 (Struct) 등.
+
+            4.4.6.2 프로퍼티 (Property) :
+                클래스의 필드에 접근하기 위한 메서드
+
+            4.4.6.3 메서드 (Method) :
+                클래스의 동작을 정의하는 함수
+                ★ C# 기초 ★ 8. 함수 (Function) [p243~271] 참조.
+
+            4.4.6.4 생성자 (Constructor) :
+                일반적으로 클래스의 필드를 초기화하거나 클래스의 인스턴스를 생성할 때 필요한 작업을 수행하는 함수
+                생성자는 클래스의 이름과 동일하며, 기본 생성자, 매개변수가 있는 생성자, 정적 생성자 등이 있음
+
+            4.4.6.5 소멸자 (Destructor) :
+                클래스의 인스턴스를 소멸하는 함수
+
+*/
+
+#endregion
+#region 4. 클래스 {3} (내장 클래스) [p309~333]
+
+/*  4.5 자주 사용하는 내장 클래스 :
         C#에서 제공하는 자주 사용하는 내장 클래스
         System 네임스페이스에 정의되어 있음
 
@@ -1434,25 +1471,108 @@ namespace CSharp
             등등...
 
         4.5.2 자주 사용하는 내장 클래스 예시 :
-            using System;
-
-            namespace ConsoleApp1
-            {
-                class Program
+            간단히 사용하는 방법만 예시로 작성함.
+            Console :
+                static void Main()
                 {
-                    static void Main(string[] args)
-                    {
-                        Console.WriteLine("Hello World!");  // Console 클래스의 WriteLine() 메서드 사용
-                        int abs = Math.Abs(-10);            // Math 클래스의 Abs() 메서드 사용
-                        Console.WriteLine(abs);             // 10 출력
-                    }
+                    Console.WriteLine("Hello World!");      // 콘솔에 Hello World! 출력
+                    Console.Write("Hello ");                // 콘솔에 Hello 출력
+                    Console.Write("World!");                // 콘솔에 World! 출력
                 }
-            }
+            Math :
+                static void Main()
+                {
+                    int num = 10;
+                    double sqrt = Math.Sqrt(num);           // num의 제곱근을 계산하여 sqrt에 저장
+                    Console.WriteLine(sqrt);                // 3.16227766016838 출력
+                }
+            Random :
+                static void Main()
+                {
+                    Random random = new Random();           // Random 클래스 인스턴스 생성
+                    int num = random.Next(1, 100);          // 1부터 100 사이의 난수 생성하여 num에 저장
+                    Console.WriteLine(num);                 // 42 출력
+                }
+            DateTime :
+                static void Main()
+                {
+                    DateTime now = DateTime.Now;            // 현재 날짜와 시간을 now에 저장
+                    Console.WriteLine(now);                 // 2021-01-01 00:00:00 출력
+                }
+            TimeSpan :
+                static void Main()
+                {
+                    DateTime now = DateTime.Now;            // 현재 날짜와 시간을 now에 저장
+                    DateTime future = now.AddDays(1);       // now에서 1일 후의 날짜를 계산하여 future에 저장
+                    TimeSpan span = future - now;           // future와 now의 시간 간격을 계산하여 span에 저장
+                    Console.WriteLine(span);                // 1.00:00:00 출력
+                }
+            String :
+                static void Main()
+                {
+                    string str = "Hello World!";            // 문자열 str 선언
+                    Console.WriteLine(str);                 // Hello World! 출력
+                }
+            StringBuilder :
+                static void Main()
+                {
+                    StringBuilder sb = new StringBuilder(); // StringBuilder 클래스 인스턴스 생성
+                    sb.Append("Hello ");                    // 문자열을 추가하여 저장
+                    sb.Append("World!");                    // 문자열을 추가하여 저장
+                    Console.WriteLine(sb);                  // Hello World! 출력
+                }
+            Array :
+                static void Main()
+                {
+                    int[] arr = new int[3];                 // 정수형 배열 arr 선언
+                    arr[0] = 10;                            // 배열의 첫 번째 요소에 값 할당
+                    arr[1] = 20;                            // 배열의 두 번째 요소에 값 할당
+                    arr[2] = 30;                            // 배열의 세 번째 요소에 값 할당
+                    Console.WriteLine(arr[1]);              // 20 출력
+                }
+            List :
+                static void Main()
+                {
+                    List<int> list = new List<int>();       // 정수형 리스트 list 선언
+                    list.Add(10);                           // 리스트에 값 추가
+                    list.Add(20);                           // 리스트에 값 추가
+                    list.Add(30);                           // 리스트에 값 추가
+                    Console.WriteLine(list[1]);             // 20 출력
+                }
+            Dictionary :
+                static void Main()
+                {
+                    Dictionary<string, int> dic = new Dictionary<string, int>();  // 문자열과 정수형 데이터를 가지는 딕셔너리 dic 선언
+                    dic.Add("One", 1);                      // 딕셔너리에 키와 값 추가
+                    dic.Add("Two", 2);                      // 딕셔너리에 키와 값 추가
+                    dic.Add("Three", 3);                    // 딕셔너리에 키와 값 추가
+                    Console.WriteLine(dic["Two"]);          // 2 출력
+                }
+            Queue :
+                static void Main()
+                {
+                    Queue<int> queue = new Queue<int>();    // 정수형 큐 queue 선언
+                    queue.Enqueue(10);                      // 큐에 값 추가
+                    queue.Enqueue(20);                      // 큐에 값 추가
+                    queue.Enqueue(30);                      // 큐에 값 추가
+                    Console.WriteLine(queue.Dequeue());     // 10 출력. 선입선출(FIFO) 방식
+                }
+            Stack :
+                static void Main()
+                {
+                    Stack<int> stack = new Stack<int>();    // 정수형 스택 stack 선언
+                    stack.Push(10);                         // 스택에 값 추가
+                    stack.Push(20);                         // 스택에 값 추가
+                    stack.Push(30);                         // 스택에 값 추가
+                    Console.WriteLine(stack.Pop());         // 30 출력. 후입선출(LIFO) 방식
+                }
+
+
 
 */
 
 #endregion
-#region 4. 클래스 {2} (Class) [p309~333]
+#region 4. 클래스 {4} (정규식, 값과 참조 형식) [p309~333]
 
 /*  4.6 정규식 :
         정규식(Regular Expression)은 특정 패턴을 기반으로 문자열을 검색, 일치, 추출, 대체하는 데 사용됨.
@@ -1559,11 +1679,116 @@ namespace CSharp
 */
 
 #endregion
+#region 5. 문자열 (StringBuilder) [p334~348]
+
+/*  5.1 문자열 다루기 :
+        .NET 프레임워크에 내장된 클래스 중 (String, StringBuilder)는 문자열을 다루는 메서드를 제공함
+        C#의 문자열은 유니코드(Unicode) 문자열로, System.String 클래스로 표현됨.
+        다국어를 지원하며, 문자열 관련 기능들도 다국어를 지원함
+
+        5.1.1 메서드 체이닝 :
+            메서드 체이닝은 메서드를 연속적으로 호출하는 방식으로, 메서드가 반환하는 값을 다시 메서드의 인자로 사용하는 방식
+
+        5.1.2 메서드 체이닝 예시 :
+            int num = 100;
+            string str = num.ToString().PadLeft(5, '0');    // num을 문자열로 변환하고, 5자리로 맞추어 왼쪽에 0을 채움
+        
+    5.2 문자열 관련 주요 메서드 :
+    
+        5.2.1 문자열 연결 :
+            string.Concat : 문자열을 연결하는 메서드
+            string.Join : 문자열 배열을 연결하는 메서드
+
+        5.2.2 문자열 비교 :
+            string.Equals : 문자열을 비교하는 메서드
+            string.Compare : 문자열을 비교하여 정렬 순서를 반환하는 메서드
+
+        5.2.3 문자열 검색 :
+            string.IndexOf : 문자열에서 특정 문자열의 위치를 검색하는 메서드
+            string.LastIndexOf : 문자열에서 특정 문자열의 마지막 위치를 검색하는 메서드
+
+        5.2.4 문자열 변환 :
+            string.ToUpper : 문자열을 대문자로 변환하는 메서드
+            string.ToLower : 문자열을 소문자로 변환하는 메서드
+            string.Trim : 문자열의 앞뒤 공백을 제거하는 메서드
+            string.Replace : 문자열의 특정 문자열을 다른 문자열로 변경하는 메서드
+            string.Substring : 문자열의 일부를 추출하는 메서드
+            string.ToCharArray : 문자열을 문자 배열로 변환하는 메서드
+            string.ToString : 문자열로 변환하는 메서드
+            string.Insert : 문자열에 문자열을 삽입하는 메서드
+            string.Remove : 문자열에서 문자열을 제거하는 메서드
+            string.PadLeft : 문자열의 왼쪽에 공백을 채우는 메서드
+            string.PadRight : 문자열의 오른쪽에 공백을 채우는 메서드
+
+        5.2.5 문자열 분할 :
+            string.Split : 문자열을 특정 문자로 분할하는 메서드
+
+        5.2.6 문자열 검사 :
+            string.IsNullOrEmpty : 문자열이 null 또는 빈 문자열인지 확인하는 메서드
+            string.IsNullOrWhiteSpace : 문자열이 null 또는 공백 문자열인지 확인하는 메서드
+        
+        5.2.7 문자열 형식 :
+            string.Format : 문자열을 형식화하는 메서드
+            string.Join : 문자열 배열을 연결하는 메서드
+        
 
 
 
 
 
+
+*/
+
+#endregion
+
+
+
+
+
+/* 클래스 생성자 소멸자 등 추후 정리
+                4.4.6.4.1 기본 생성자 :
+                    기본 생성자는 매개변수가 없는 생성자를 의미하며, 클래스의 필드를 초기화하는 역할을 함
+                    클래스에 생성자가 없으면 컴파일러가 자동으로 생성하며,
+                    클래스에 생성자가 하나라도 있으면 컴파일러가 기본 생성자를 자동으로 생성하지 않음
+                
+                4.4.6.4.2 매개변수가 있는 생성자 :
+                    클래스에 하나 이상의 매개변수가 있는 생성자를 정의함.
+                    클래스의 필드를 초기화할 때 사용하며, 인스턴스 생성 시 매개변수를 전달하여 필드를 초기화할 수 있음
+
+                4.4.6.4.3 정적 생성자 :
+                    클래스의 정적 멤버를 초기화하는 역할을 하는 생성자
+                    정적 생성자는 인스턴스 생성자와 무관하게 클래스가 로드될 때 한 번만 호출되며, 정적 멤버를 초기화하는 역할을 함
+                    따라서 인스턴스가 생성되지 않아도 정적 맴베를 초기화할 수 있음
+
+                4.4.6.4.4 복사 생성자 :
+                    같은 클래스의 다른 인스턴스를 복사하여 새로운 인스턴스를 생성하는 생성자
+                    복사 생성자는 반드시 명시적으로 정의해야 함.
+
+                4.4.6.4.5 생성자 체이닝 :
+                    생성자에서 다른 생성자를 호출하는 방식으로, this 키워드를 사용하여 다른 생성자를 호출함
+                    생성자 체이닝을 사용하면 중복되는 코드를 줄일 수 있음
+                
+                4.4.6.4.6 예시 :
+                    class Car
+                    {
+                        public string name;
+                        public int year;
+
+                        public Car() { }                        // 기본 생성자. 생성자가 없다면 컴파일러가 자동으로 생성
+
+                        public Car(string name)                 // 매개변수가 있는 생성자. name 필드 초기화
+                        { this.name = name; }
+
+                        static Car() { }                        // 정적 생성자. 정적 멤버 초기화
+
+                        public Car(Car car)                     // 복사 생성자. 다른 인스턴스를 복사하여 새로운 인스턴스 생성
+                        { this.name = car.name; this.year = car.year; }
+                    }
+                
+                4.4.6.4.7 생성자 오버로드 :
+                    생성자 오버로드는 하나의 클래스에 여러 개의 생성자를 정의하는 것
+                    생성자 오버로드를 사용하면 다양한 매개변수를 전달하여 인스턴스를 생성할 수 있음
+*/
 
 
 #endregion
