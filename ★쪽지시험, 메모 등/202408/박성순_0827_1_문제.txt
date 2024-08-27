@@ -1,0 +1,211 @@
+1.  아래의 결과가 나오게 코드를 작성하세요. (try catch  thow를 이용한 문제)
+    실행 예 :
+
+    1   Finally
+        제수를 입력하세요. : 40
+        피제수를 입력하세요. : 십일
+        에러 : 입력 문자열의 형식이 잘못되었습니다.
+        프로그램을 종료합니다.
+
+    2   Finally
+        제수를 입력하세요. : 7
+        피제수를 입력하세요. : 0
+        Divide() 시작
+        Divide() 예외 발생
+        Divide() 끝
+        에러 : 0으로 나누려 했습니다.
+
+    3   Finally
+        제수를 입력하세요. : 12
+        피제수를 입력하세요. : 4
+        Divide() 시작
+        Divide() 끝
+        12/4 = 3
+        프로그램을 종료합니다.
+
+    답 : 
+
+
+
+
+
+2.  아래의 코드를 어떤 자료형이든 담을 수 있게 바꾸어보세요.
+
+    using System;
+    using System.Collections;
+
+    namespace Enumerable
+    {
+        class MyList : IEnumerable, IEnumerator
+        {
+            private int[] array;
+            int position = -1;
+
+            public MyList()
+            {
+                array = new int[3];
+            }
+
+            public int this[int index]
+            {
+                get
+                {
+                    return array[index];
+                }
+
+                set
+                {
+                    if (index >= array.Length)
+                    {
+                        Array.Resize<int>(ref array, index + 1);
+                        Console.WriteLine($"Array Resized : {array.Length}");
+                    }
+
+                    array[index] = value;
+                }
+            }
+
+            // IEnumerator 멤버
+            public object Current
+            {
+                get
+                {
+                    return array[position];
+                }
+            }
+
+            // IEnumerator 멤버
+            public bool MoveNext()
+            {
+                if (position == array.Length - 1)
+                {
+                    Reset();
+                    return false;
+                }
+
+                position++;
+                return (position < array.Length);
+            }
+
+            // IEnumerator 멤버
+            public void Reset()
+            {
+                position = -1;
+            }
+
+            // IEnumerable 멤버
+            public IEnumerator GetEnumerator()
+            {
+                return this;
+            }
+        }
+
+        class MainApp
+        {
+            static void Main(string[] args)
+            {
+                MyList list = new MyList();
+                for (int i = 0; i < 5; i++)
+                    list[i] = i;
+
+                foreach (int e in list)
+                    Console.WriteLine(e);
+            }
+        }
+    }
+
+    답 : 
+        class MyList<T> : IEnumerable, IEnumerator
+        {
+            private T[] array;
+            int position = -1;
+
+            public MyList() { array = new T[3]; }
+
+            public T this[int index]
+            {
+                get { return array[index]; }
+                set
+                {
+                    if (index >= array.Length)
+                    {
+                        Array.Resize<T>(ref array, index + 1);
+                        Console.WriteLine($"Array Resized : {array.Length}");
+                    }
+                    array[index] = value;
+                }
+            }
+
+            // IEnumerator 멤버
+            public object Current
+            {
+                get { return array[position]!; }
+            }
+
+            // IEnumerator 멤버
+            public bool MoveNext()
+            {
+                if (position == array.Length - 1)
+                {
+                    Reset();
+                    return false;
+                }
+                position++;
+                return position < array.Length;
+            }
+
+            // IEnumerator 멤버
+            public void Reset() => position = -1;
+
+            // IEnumerable 멤버
+            public IEnumerator GetEnumerator() { return this; }
+        }
+
+        class MainApp
+        {
+            static void Main(string[] args)
+            {
+                MyList<double> list = new MyList<double>();
+                for (int i = 0; i < 5; i++)
+                    list[i] = i;
+
+                foreach (double e in list)
+                    Console.WriteLine(e);
+            }
+        }
+
+3.  아래의 예제를 이용하여 아래 예시와 같이 출력되도록 하세요.
+
+    using System;
+    using System.Linq;
+
+    namespace FromFrom
+    {
+        class Class
+        {
+            public string Name { get; set; }
+            public int[]  Score { get; set; }
+        }
+
+        class MainApp
+        {
+            static void Main(string[] args)
+            {
+                Class[] arrClass = 
+                {
+                    new Class(){Name="연두반", Score=new int[]{99, 80, 70, 24}},
+                    new Class(){Name="분홍반", Score=new int[]{60, 45, 87, 72}},
+                    new Class(){Name="파랑반", Score=new int[]{92, 30, 85, 94}},
+                    new Class(){Name="노랑반", Score=new int[]{90, 88, 0, 17}}
+                };
+            }
+        }
+    }
+
+    실행 예 : 
+    
+    낙제 : 노랑반 (0)
+    낙제 : 노랑반 (17)
+    낙제 : 연두반 (24)
+    낙제 : 파랑반 (30)
+    낙제 : 분홍반 (45)
