@@ -80,9 +80,7 @@ namespace Csharp08_26NETCORE
                     secondNum = Convert.ToInt32(second);
                     Console.WriteLine("Divide() 시작");
                     result = firstNum / secondNum;
-                    Console.WriteLine("Divide() 끝");
                     Console.WriteLine($"{firstNum}/{secondNum} = {result}");
-                    Console.WriteLine("프로그램을 종료합니다.");
                 }
 
                 catch (FormatException ex)
@@ -92,8 +90,11 @@ namespace Csharp08_26NETCORE
                 catch (DivideByZeroException ex)
                 {
                     Console.WriteLine("Divide() 예외 발생");
-                    Console.WriteLine("Divide() 끝");
                     Console.WriteLine("에러 : 0으로 나누려 했습니댜.\n" + ex.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("Divide() 끝");
                 }
             }
 
@@ -107,6 +108,7 @@ namespace Csharp08_26NETCORE
                 Console.Write("피제수를 입력하세요. : ");
                 num2 = Console.ReadLine();
                 Divide(num1, num2);
+                Console.WriteLine("프로그램을 종료합니다.");
             }
         } */
     /*  0827일 문제 2
@@ -168,7 +170,6 @@ namespace Csharp08_26NETCORE
                 Console.WriteLine(e);
         }
     }*/
-
     //  0827일 문제 3
 
     class Class
@@ -188,6 +189,15 @@ namespace Csharp08_26NETCORE
                 new Class() {Name = "파랑반", Score = [92, 30, 85, 94]},
                 new Class() {Name = "노랑반", Score = [90, 88, 0, 17]}
             ];
+
+            var classes = from c in arrClass
+                          from s in c.Score
+                          where s < 60
+                          orderby s
+                          select new { c.Name, Lowest = s };
+
+            foreach (var c in classes)
+                Console.WriteLine($"낙제 : {c.Name} ({c.Lowest})");
         }
     }
 
