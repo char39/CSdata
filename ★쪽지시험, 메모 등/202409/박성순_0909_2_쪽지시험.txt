@@ -1,0 +1,105 @@
+1. 클래스의 구성 요소인 클래스 멤버들을 나열하시오. (5개 이상)
+    답 : 인덱서, 속성, 변수, 메서드, 중첩클래스, 생성자 등
+
+2. 접근 지정자 중에서 자신의 클래스와 상속받는 클래스에서만 접근이 가능하게 하는 지정자는 무엇인가?
+    답 : protected, protected internal
+
+3. 객체를 생성하는 과정에서 메모리에 객체를 할당한 후 객체 멤버 값의 초기화는 ( )(이)가 담당한다.
+    답 : 생성자
+
+4. C#에서 객체의 소멸은 ( )(이)가 담당하기 때문에 사용자가 객체 소멸 코드를 직접 작성할 필요가 없다.
+    답 : 소멸자
+
+5. 객체지향의 원리들을 열거하시오.
+    답 : 객체 지향의 주요 원리는, 캡슐화, 상속, 다형성, 추상화입니다.
+
+6. 상속을 통해서 얻을 수 있는 장점에 대해 간략히 설명하시오.
+    답 : 상속을 통하여 코드를 재사용할 수 있어, 확장과 유지보수에 유리함.
+        또한 상속을 사용하면 클래스간의 관계가 명확해지기에 가독성 향상과 구조 이해에 도움이 됨.
+
+7. 객체 지향에서 클래스들의 구조를 규약하기 위한 설계도 역할을 할 수 있는 것은 ( )와(과) ( ) (이)다.
+    답 : 인터페이스, 추상클래스
+
+8. 다음과 같이 설명하는 구조의 클래스들을 코드로 구현하시오.
+    기반 클래스, 파생 클래스의 구조를 설계하고 이를 실행할 수 있는 Main() 메소드가 포함된 콘솔 클래스를 설계한다.
+    기반 클래스명은 Employee로 하고 이를 상속받는 파생 클래스명은 SalesPerson으로 한다.
+    기반 클래스에서 구현하는 필드는 이름, 성별, 나이, 부서고 메소드로는 기반 클래스의 속성들을 화면에 출력하는 메소드를 구현한다.
+    기반 클래스에서는 가상 메소드를 구현한다. 구현할 내용은 "직원입니다."를 화면에 출력하는 것이다.
+    파생 클래스는 기반 클래스를 상속받으며 가상 메소드를 재정의해서 "영업직원입니다."라고 화면에 출력하게 한다.
+    콘솔 클래스에서는 Employ 클래스와 SalesPerson 클래스의 인스턴스를 만들어 각각의 메소드를 실행하는 코드를 구현한다.
+
+    답 : 
+        public class Employee
+        {
+            protected string? Name { get; set; }
+            protected string? Sex { get; set; }
+            protected int Age { get; set; }
+            protected string? Position { get; set; }
+            public virtual void Method() => Console.WriteLine("직원입니다.");
+        }
+        public class SalesPerson : Employee
+        {
+            public override void Method() => Console.WriteLine("영업직원입니다.");
+        }
+
+        internal class Program
+        {
+            static void Main()
+            {
+                Employee emp = new();
+                emp.Method();
+                SalesPerson sp = new();
+                sp.Method();
+            }
+        }
+
+9. 인터페이스를 통해 다중 상속받는 구조를 코드로 구현하시오. 
+    사칙연산을 정의하는 인터페이스 네 개를 각각 선언한다. 이름은 사용자가 임의대로 편한 이름을 명명하도록 한다.
+    사칙연산을 정의한 인터페이스를 상속받아 다중 상속을 받는 클래스를 구현한다.
+    입력 값 두 개를받아 사칙연산을 하는 코드를 구현하고 실행한다.
+
+    답 : 
+        public interface IPlus { int Plus(int a, int b); }
+        public interface IMinus { int Minus(int a, int b); }
+        public interface IMultiply { int Multiply(int a, int b); }
+        public interface IDivide { int Divide(int a, int b); }
+        public class Calculator : IPlus, IMinus, IMultiply, IDivide
+        {
+            public int Plus(int a, int b) => a + b;
+            public int Minus(int a, int b) => a - b;
+            public int Multiply(int a, int b) => a * b;
+            public int Divide(int a, int b) => a / b;
+        }
+
+        public class Program
+        {
+            static void Main()
+            {
+                Calculator calc = new();
+                Console.WriteLine(calc.Plus(10, 5));
+                Console.WriteLine(calc.Minus(10, 5));
+                Console.WriteLine(calc.Multiply(10, 5));
+                Console.WriteLine(calc.Divide(10, 5));
+            }
+        }
+
+10. 다음은 인덱서를 사용해서 Color 배열에 원하는 색을 입력하기 위한 인덱서 예제의 일부다.
+    밑줄이 있을 곳에 위치할 소스는 몇 번 소스인가?
+    
+    public class PropertyTest
+    {
+        private string[] color;
+
+        -------------
+        {
+            get { return color[index]; }
+            set { color[index] = value; }
+        }
+    }
+
+    [1] public string Color[int index]
+    [2] public string color[int index]
+    [3] public string this[string color]
+    [4] public string this[string Color]
+
+    답 : 본문에 없음.. public string this[int index]
