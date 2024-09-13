@@ -511,9 +511,7 @@ namespace Csharp09_11NETCORE
             flyable.Fly();
         }
     } */
-    //  문제 4.
-    
-    
+    /*  문제 4.
     // Define an abstract class 여기 밑에 추상 클래스를 구현 하세요
     
     public abstract class Shape
@@ -567,5 +565,115 @@ namespace Csharp09_11NETCORE
             rectangle.Display();
             Console.WriteLine("Rectangle Area: " + rectangle.CalculateArea());
         }
+    }*/
+
+    internal class Program
+    {
+        static void Main()
+        {
+            Func<int, int, int> Ascend = delegate (int x, int y) 
+            {
+                if (x > y)
+                    return 1;
+                else if (x == y)
+                    return 0;
+                else
+                    return -1;
+            };
+            Func<int, int, int> Descend = delegate (int x, int y)
+            {
+                if (x < y)
+                    return 1;
+                else if (x == y)
+                    return 0;
+                else
+                    return -1;
+            };
+
+            int[] array = { 34, 78, 12, 90, 55, 23, 89, 67 };
+            int target = 90;
+
+            int res = LinearSearchPlus(array, target);
+            Console.WriteLine(res);
+
+        }
+
+        static int LinearSearch(int[] array, int target)
+        {
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] == target)
+                    return i;
+            return -1;
+        }
+        static int BinarySearch(int[] array, int target)
+        {
+            int first = 0;
+            int last = array.Length - 1;
+            int mid;
+            while (first <= last)
+            {
+                mid = (first + last) / 2;
+                if (array[mid] == target)
+                    return mid;
+                else
+                {
+                    if (array[mid] > target)
+                        last = mid - 1;
+                    else
+                        first = mid + 1;
+                }
+            }
+            return -1;
+        }
+        static void BubbleSort(int[] array, Func<int, int, int> condition)
+        {
+            int temp;
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                for (int j = 0; j < array.Length - (i + 1); j++)
+                {
+                    if (condition(array[j], array[j + 1]) > 0)
+                    {
+                        temp = array[j + 1];
+                        array[j + 1] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+        }
+        static int LinearSearchPlus(int[] array, int target, int Index = 0)
+        {
+            if (Index >= array.Length)
+                return -1;
+            else if (array[Index] == target)
+                return Index;
+            else
+                return LinearSearchPlus(array, target, Index + 1);
+        }
+        static int BinarySearchPlus(int[] array, int target, int first = 0, int last = 0)
+        {
+            int mid;
+            while (first <= last)
+            {
+                mid = (first + last) / 2;
+                if (array[mid] == target)
+                    return mid;
+                else
+                {
+                    if (array[mid] > target)
+                        last = mid - 1;
+                    else
+                        first = mid + 1;
+                }
+            }
+            return -1;
+        }
     }
+
+
+
+
+
+
+
 }
