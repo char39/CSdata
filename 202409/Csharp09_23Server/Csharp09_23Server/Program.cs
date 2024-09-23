@@ -1,5 +1,7 @@
 ﻿namespace ServerBase
 {
+/*  volatile 키워드와 lock 키워드. (멀티쓰레드 환경에서의 데이터 일관성 문제 해결)
+
     internal class Program
     {
         // static으로 선언된 변수들은 멀티쓰레드 환경에서 접근이 가능.
@@ -8,7 +10,10 @@
         // 이를 방지하기 위해서 lock을 사용하여 동기화를 시켜주는 작업이 필요함.
         // lock을 사용하면 특정 코드 블록에 대한 접근을 한 번에 하나의 쓰레드만 허용하며, 동시 접근으로 인한 데이터 일관성 문제를 해결할 수 있다.
         
-        volatile static bool _Stop = false; // volatile은 휘발성이라는 의미로, 컴파일러가 최적화를 하지 않도록 하는 키워드.
+        // volatile은 휘발성이라는 의미로, 컴파일러가 최적화를 하지 않도록 하는 키워드.
+        // 캐시 메모리를 무시하고 메인 메모리에서 데이터를 읽어오도록 함.
+        // 임시방편으로 사용하는 것이 좋음. (lock을 사용하는 것이 더 좋음)
+        volatile static bool _Stop = false;
 
         static void ThreadMain()
         {
@@ -19,16 +24,15 @@
                 Thread.Sleep(200);
             }
 
-            // Release 모드로 빌드하면 위의 코드가 아래 코드로 변경될 수 있음.
-            if (!_Stop)
-            {
-                while (true)
-                {
-                    Console.WriteLine("쓰레드 동작중");
-                    Thread.Sleep(200);
-                }
-            }
-
+            // Release 모드로 빌드하면 위의 코드가 아래 코드로 변경될 수도 있음.
+            // if (!_Stop)
+            // {
+            //     while (true)
+            //     {
+            //         Console.WriteLine("쓰레드 동작중");
+            //         Thread.Sleep(200);
+            //     }
+            // }
 
             Console.WriteLine("쓰레드 종료");
         }
@@ -44,5 +48,33 @@
             task.Wait();
             Console.WriteLine("종료 완료");
         }   
+    } */
+
+    internal class Program
+    {
+        static void Main()
+        {
+            int[,] arr = new int[10_000, 10_000];
+            {
+                long now = DateTime.Now.Ticks;          // 현재 시간을 나노초로 반환
+
+                for (int y = 0; y < 10_000; y++)
+                    for (int x = 0; x < 10_000; x++)
+                        arr[y, x] = 1;
+
+                long end = DateTime.Now.Ticks;
+                Console.WriteLine("종료 시간 : " + (end - now) + "ns --- (arr[y, x])");
+            }
+            {
+                long now = DateTime.Now.Ticks;
+
+                for (int y = 0; y < 10_000; y++)
+                    for (int x = 0; x < 10_000; x++)
+                        arr[x, y] = 1;
+
+                long end = DateTime.Now.Ticks;
+                Console.WriteLine("종료 시간 : " + (end - now) + "ns --- (arr[x, y])");
+            }
+        }
     }
 }
