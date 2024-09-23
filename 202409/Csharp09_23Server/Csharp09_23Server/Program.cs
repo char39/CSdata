@@ -8,7 +8,7 @@
         // 이를 방지하기 위해서 lock을 사용하여 동기화를 시켜주는 작업이 필요함.
         // lock을 사용하면 특정 코드 블록에 대한 접근을 한 번에 하나의 쓰레드만 허용하며, 동시 접근으로 인한 데이터 일관성 문제를 해결할 수 있다.
         
-        static bool _Stop = false;
+        volatile static bool _Stop = false; // volatile은 휘발성이라는 의미로, 컴파일러가 최적화를 하지 않도록 하는 키워드.
 
         static void ThreadMain()
         {
@@ -18,6 +18,17 @@
                 Console.WriteLine("쓰레드 동작중");
                 Thread.Sleep(200);
             }
+
+            // Release 모드로 빌드하면 위의 코드가 아래 코드로 변경될 수 있음.
+            if (!_Stop)
+            {
+                while (true)
+                {
+                    Console.WriteLine("쓰레드 동작중");
+                    Thread.Sleep(200);
+                }
+            }
+
 
             Console.WriteLine("쓰레드 종료");
         }
