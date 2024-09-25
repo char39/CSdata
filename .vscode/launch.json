@@ -2,24 +2,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C#: ServerBasic",
+            "name": "C#: ServerBase",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/202409/Csharp09_20Server/ServerBasic/ServerBasic.csproj",
-            "launchConfigurationId": "TargetFramework=;ServerBasic"
+            "projectPath": "${workspaceFolder}/202409/Csharp09_25Server/ServerBase/ServerBase.csproj",
+            "launchConfigurationId": "TargetFramework=;ServerBase"
         },
         {
             "name": "C#: ServerCore",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/202409/Csharp09_20Server/ServerCore/ServerCore.csproj",
+            "projectPath": "${workspaceFolder}/202409/Csharp09_25Server/ServerCore/ServerCore.csproj",
             "launchConfigurationId": "TargetFramework=;ServerCore"
+        },
+        {
+            "name": "C#: Dummy",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/202409/Csharp09_25Server/Dummy/Dummy.csproj",
+            "launchConfigurationId": "TargetFramework=;Dummy"
         }
     ],
     "compounds": [
         {
             "name": "Run All",
-            "configurations": ["C#: ServerBasic", "C#: ServerCore"]
+            "configurations": ["C#: ServerBase", "C#: ServerCore", "C#: Dummy"]
         }
     ]
 }
