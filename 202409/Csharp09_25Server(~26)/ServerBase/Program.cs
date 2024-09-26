@@ -1,10 +1,10 @@
-﻿namespace Dummy
+﻿namespace ServerBase
 {
     internal class Program
     {
         static void Main()
         {
-            Console.WriteLine("This is Dummy.");
+            Console.WriteLine("\nServerBase\n");
         }
     }
 }
