@@ -1,5 +1,7 @@
 ﻿namespace ServerBase
 {
+    // 0925
+
     /*  SpinLock
     public class SpinlockTest
     {
