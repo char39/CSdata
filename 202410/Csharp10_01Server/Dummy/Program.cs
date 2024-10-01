@@ -23,8 +23,11 @@ namespace Dummy
                     listenSocket.Connect(endPoint);
                     Console.WriteLine($"Connected to {listenSocket.RemoteEndPoint}");
 
-                    byte[] sendBuffer = Encoding.UTF8.GetBytes("Hello World!");
-                    int sendBytes = listenSocket.Send(sendBuffer);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended" + i);
+                        int sendBytes = listenSocket.Send(sendBuffer);
+                    }
 
                     byte[] recvBuffer = new byte[1024];
                     int recvBytes = listenSocket.Receive(recvBuffer);

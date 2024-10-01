@@ -12,15 +12,29 @@ namespace ServerCore
         {
             try
             {
-                byte[] recvBuff = new byte[1024];
-                int recvBytes = clientSocket.Receive(recvBuff);
-                string recvData = Encoding.UTF8.GetString(recvBuff, 0, recvBytes);
-                Console.WriteLine($"[From Client] {recvData}");
+                #region 블로킹 방식의 Receive()와 Send()
 
-                byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to ServerCore\n");
-                clientSocket.Send(sendBuff);
-                clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
+                // byte[] recvBuff = new byte[1024];
+                // int recvBytes = clientSocket.Receive(recvBuff);
+                // string recvData = Encoding.UTF8.GetString(recvBuff, 0, recvBytes);
+                // Console.WriteLine($"[From Client] {recvData}");
+
+                // byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to ServerCore\n");
+                // clientSocket.Send(sendBuff);
+                // clientSocket.Shutdown(SocketShutdown.Both);
+                // clientSocket.Close();
+                
+                #endregion//-----------------------------------------
+                #region 논블로킹 비동기식 방식의 Receive() Send()
+
+                Session session = new();
+                session.Start(clientSocket);
+                byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to ServerCore!\n");
+                session.Send(sendBuff);
+                Thread.Sleep(1000);
+                session.Disconnect();
+
+                #endregion//-----------------------------------------
             }
             catch (Exception ex)
             {
