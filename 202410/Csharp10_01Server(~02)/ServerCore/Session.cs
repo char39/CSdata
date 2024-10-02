@@ -6,7 +6,7 @@ namespace ServerCore
 {
     public abstract class Session
     {
-        protected Socket socket;
+        protected Socket? socket;
         protected SocketAsyncEventArgs recvArgs = new();
         protected SocketAsyncEventArgs sendArgs = new();
         protected int disconnected = 0;
@@ -44,9 +44,13 @@ namespace ServerCore
         {
             if (Interlocked.Exchange(ref disconnected, 1) == 1)     // 이미 연결이 끊겼다면 return
                 return;
-            OnDisconnected(socket.RemoteEndPoint);
-            socket.Shutdown(SocketShutdown.Both);
-            socket.Close();
+
+            if (socket != null && socket.RemoteEndPoint != null)
+            {
+                OnDisconnected(socket.RemoteEndPoint);
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
         }
 
 
@@ -67,6 +71,9 @@ namespace ServerCore
             }
             sendArgs.BufferList = pendingList;
 
+            if (socket == null)
+                throw new InvalidOperationException("Socket is not initialized.");
+
             bool _pending = socket.SendAsync(sendArgs);
             if (!_pending)
             {
@@ -74,7 +81,7 @@ namespace ServerCore
             }
         }
         /// <summary> 네트워크 통신 메서드 </summary>
-        protected void OnSendCompleted(object sender, SocketAsyncEventArgs args)
+        protected void OnSendCompleted(object? sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
             {
@@ -100,19 +107,28 @@ namespace ServerCore
         /// <summary> 네트워크 통신 메서드 </summary>
         protected void RegisterReceive(SocketAsyncEventArgs args)
         {
+            if (socket == null)
+                throw new InvalidOperationException("Socket is not initialized.");
+
             bool pending = socket.ReceiveAsync(args);
             if (!pending)
                 OnReceiveCompleted(null, args);
 
         }
         /// <summary> 네트워크 통신 메서드 </summary>
-        protected void OnReceiveCompleted(object sender, SocketAsyncEventArgs args)
+        protected void OnReceiveCompleted(object? sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
             {
                 try
                 {
-                    OnReceiev(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
+                    if (args.Buffer != null)
+                        OnReceiev(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
+                    else
+                    {
+                        Console.WriteLine("Receive buffer is null.");
+                        Disconnect();
+                    }
                     // // 추상클래스 사용 이전 방법
                     // string recvData = Encoding.UTF8.GetString(args.Buffer, args.Offset, args.BytesTransferred);
                     // Console.WriteLine($"From[Client] : {recvData}");

@@ -9,13 +9,6 @@
             "launchConfigurationId": "TargetFramework=;ServerBase"
         },
         {
-            "name": "C#: ServerCore",
-            "type": "dotnet",
-            "request": "launch",
-            "projectPath": "${workspaceFolder}/202410/Csharp10_01Server(~02)/ServerCore/ServerCore.csproj",
-            "launchConfigurationId": "TargetFramework=;ServerCore"
-        },
-        {
             "name": "C#: Dummy",
             "type": "dotnet",
             "request": "launch",
@@ -26,7 +19,7 @@
     "compounds": [
         {
             "name": "Run All",
-            "configurations": ["C#: ServerBase", "C#: ServerCore", "C#: Dummy"]
+            "configurations": ["C#: ServerBase", "C#: Dummy"]
         }
     ]
 }

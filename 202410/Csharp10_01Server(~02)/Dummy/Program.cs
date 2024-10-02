@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using ServerCore;
+using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -17,24 +19,10 @@ namespace Dummy
 
             while (true)
             {
-                Socket socket = new(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
-                    socket.Connect(endPoint);
-                    Console.WriteLine($"Connected to {socket.RemoteEndPoint}");
-
-                    for (int i = 0; i < 5; i++)
-                    {
-                        byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended" + i);
-                        int sendBytes = socket.Send(sendBuffer);
-                    }
-
-                    byte[] recvBuffer = new byte[1024];
-                    int recvBytes = socket.Receive(recvBuffer);
-                    string recvData = Encoding.UTF8.GetString(recvBuffer, 0, recvBytes);
-                    Console.WriteLine($"[From Server] {recvData}");
-                    socket.Shutdown(SocketShutdown.Both);
-                    socket.Close();
+                    Connector connect = new();
+                    connect.Connect(endPoint, () => { return new GameSession(); });
                 }
                 catch (Exception ex)
                 {
@@ -43,6 +31,33 @@ namespace Dummy
 
                 Thread.Sleep(100);
             }
+        }
+    }
+    
+    public class GameSession : Session
+    {
+        public override void OnConnected(EndPoint endPoint)
+        {
+            Console.WriteLine($"Connected : {endPoint}");
+
+            for (int i = 0; i < 5; i++)
+            {
+                byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended" + i);
+                Send(sendBuffer);
+            }
+        }
+        public override void OnReceiev(ArraySegment<byte> buffer)
+        {
+            string recvData = buffer.Array != null ? Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count) : string.Empty;
+            Console.WriteLine($"From[Server] : {recvData}");
+        }
+        public override void OnSend(int numBytes)
+        {
+            Console.WriteLine("Transferred bytes : " + numBytes);
+        }
+        public override void OnDisconnected(EndPoint endPoint)
+        {
+            Console.WriteLine($"Disconnected : {endPoint}");
         }
     }
 }

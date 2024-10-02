@@ -6,8 +6,8 @@ namespace ServerCore
 {
     public class Listener
     {
-        private Socket listenSocket;
-        private Func<Session> SessionFactory;
+        private Socket? listenSocket;
+        private Func<Session>? SessionFactory;
         private SocketAsyncEventArgs recvArgs = new();
 
         public void Initialize(IPEndPoint endPoint, Func<Session> SessionFactory)
@@ -27,22 +27,26 @@ namespace ServerCore
         {
             args.AcceptSocket = null;
 
-            bool pending = listenSocket.AcceptAsync(args);      // 보류 중인가
-            if (!pending)
-                OnAcceptCompleted(null, args);
+            if (listenSocket != null)
+            {
+                bool pending = listenSocket.AcceptAsync(args);      // 보류 중인가
+                if (!pending)
+                    OnAcceptCompleted(null, args);
+            }
         }
 
-        private void OnAcceptCompleted(object sender, SocketAsyncEventArgs args)
+        private void OnAcceptCompleted(object? sender, SocketAsyncEventArgs args)
         {
-            if (args.SocketError == SocketError.Success)
+            if (args.SocketError == SocketError.Success && SessionFactory != null && args.AcceptSocket != null)
             {
                 Session session = SessionFactory.Invoke();
                 session.Start(args.AcceptSocket);
-                session.OnConnected(args.AcceptSocket.RemoteEndPoint);
-                // OnAcceptHandler.Invoke(args.AcceptSocket);
+                session.OnConnected(args.AcceptSocket.RemoteEndPoint ?? throw new InvalidOperationException("RemoteEndPoint is null."));
             }
             else
-                Console.WriteLine(args.SocketError.ToString());
+            {
+                Console.WriteLine(args.SocketError == SocketError.Success ? "SessionFactory or AcceptSocket is null." : args.SocketError.ToString());
+            }
 
             RegisterAccept(args);
         }
