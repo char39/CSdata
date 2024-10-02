@@ -1,17 +1,23 @@
-﻿using System.Net.Sockets;
+﻿using System.Net;
+using System.Net.Sockets;
 using System.Text;
 
 namespace ServerCore
 {
-    public class Session
+    public abstract class Session
     {
-        private Socket socket;
-        private SocketAsyncEventArgs recvArgs = new();
-        private SocketAsyncEventArgs sendArgs = new();
-        private int disconnected = 0;
-        private Queue<byte[]> sendQueue = new();
-        private List<ArraySegment<byte>> pendingList = new();
-        private readonly object lockObj = new();
+        protected Socket socket;
+        protected SocketAsyncEventArgs recvArgs = new();
+        protected SocketAsyncEventArgs sendArgs = new();
+        protected int disconnected = 0;
+        protected Queue<byte[]> sendQueue = new();
+        protected List<ArraySegment<byte>> pendingList = new();
+        protected readonly object lockObj = new();
+
+        public abstract void OnConnected(EndPoint endPoint);
+        public abstract void OnReceiev(ArraySegment<byte> buffer);
+        public abstract void OnSend(int numBytes);
+        public abstract void OnDisconnected(EndPoint endpoint);
 
         public void Start(Socket socket)
         {
@@ -38,6 +44,7 @@ namespace ServerCore
         {
             if (Interlocked.Exchange(ref disconnected, 1) == 1)     // 이미 연결이 끊겼다면 return
                 return;
+            OnDisconnected(socket.RemoteEndPoint);
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
         }
@@ -45,7 +52,7 @@ namespace ServerCore
 
 
         /// <summary> 네트워크 통신 메서드 </summary>
-        private void RegisterSend()
+        protected void RegisterSend()
         {
             pendingList.Clear();
 
@@ -67,7 +74,7 @@ namespace ServerCore
             }
         }
         /// <summary> 네트워크 통신 메서드 </summary>
-        private void OnSendCompleted(object sender, SocketAsyncEventArgs args)
+        protected void OnSendCompleted(object sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
             {
@@ -75,8 +82,8 @@ namespace ServerCore
                 {
                     sendArgs.BufferList = null;
                     pendingList.Clear();
-                    Console.WriteLine("Transferred bytes : " + sendArgs.BytesTransferred);
-
+                    OnSend(sendArgs.BytesTransferred);
+                    
                     if (sendQueue.Count > 0)
                         RegisterSend();
                 }
@@ -91,7 +98,7 @@ namespace ServerCore
             }
         }
         /// <summary> 네트워크 통신 메서드 </summary>
-        private void RegisterReceive(SocketAsyncEventArgs args)
+        protected void RegisterReceive(SocketAsyncEventArgs args)
         {
             bool pending = socket.ReceiveAsync(args);
             if (!pending)
@@ -99,14 +106,16 @@ namespace ServerCore
 
         }
         /// <summary> 네트워크 통신 메서드 </summary>
-        private void OnReceiveCompleted(object sender, SocketAsyncEventArgs args)
+        protected void OnReceiveCompleted(object sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
             {
                 try
                 {
-                    string recvData = Encoding.UTF8.GetString(args.Buffer, args.Offset, args.BytesTransferred);
-                    Console.WriteLine($"From[Client] : {recvData}");
+                    OnReceiev(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
+                    // // 추상클래스 사용 이전 방법
+                    // string recvData = Encoding.UTF8.GetString(args.Buffer, args.Offset, args.BytesTransferred);
+                    // Console.WriteLine($"From[Client] : {recvData}");
                     RegisterReceive(args);
                 }
                 catch (Exception ex)

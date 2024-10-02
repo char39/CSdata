@@ -7,14 +7,14 @@ namespace ServerCore
     public class Listener
     {
         private Socket listenSocket;
-        private Action<Socket> OnAcceptHandler;
+        private Func<Session> SessionFactory;
         private SocketAsyncEventArgs recvArgs = new();
 
-        public void Initialize(IPEndPoint endPoint, Action<Socket> OnAcceptHandler)
+        public void Initialize(IPEndPoint endPoint, Func<Session> SessionFactory)
         {
             listenSocket = new(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            this.OnAcceptHandler += OnAcceptHandler;
+            this.SessionFactory += SessionFactory;
 
             listenSocket.Bind(endPoint);
             listenSocket.Listen(10);
@@ -35,7 +35,12 @@ namespace ServerCore
         private void OnAcceptCompleted(object sender, SocketAsyncEventArgs args)
         {
             if (args.SocketError == SocketError.Success)
-                OnAcceptHandler.Invoke(args.AcceptSocket);
+            {
+                GameSession session = new();
+                session.Start(args.AcceptSocket);
+                session.OnConnected(args.AcceptSocket.RemoteEndPoint);
+                // OnAcceptHandler.Invoke(args.AcceptSocket);
+            }
             else
                 Console.WriteLine(args.SocketError.ToString());
 
