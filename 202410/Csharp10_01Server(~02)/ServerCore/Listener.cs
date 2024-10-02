@@ -36,7 +36,7 @@ namespace ServerCore
         {
             if (args.SocketError == SocketError.Success)
             {
-                GameSession session = new();
+                Session session = SessionFactory.Invoke();
                 session.Start(args.AcceptSocket);
                 session.OnConnected(args.AcceptSocket.RemoteEndPoint);
                 // OnAcceptHandler.Invoke(args.AcceptSocket);

@@ -17,24 +17,24 @@ namespace Dummy
 
             while (true)
             {
-                Socket listenSocket = new(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Socket socket = new(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
-                    listenSocket.Connect(endPoint);
-                    Console.WriteLine($"Connected to {listenSocket.RemoteEndPoint}");
+                    socket.Connect(endPoint);
+                    Console.WriteLine($"Connected to {socket.RemoteEndPoint}");
 
                     for (int i = 0; i < 5; i++)
                     {
                         byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended" + i);
-                        int sendBytes = listenSocket.Send(sendBuffer);
+                        int sendBytes = socket.Send(sendBuffer);
                     }
 
                     byte[] recvBuffer = new byte[1024];
-                    int recvBytes = listenSocket.Receive(recvBuffer);
+                    int recvBytes = socket.Receive(recvBuffer);
                     string recvData = Encoding.UTF8.GetString(recvBuffer, 0, recvBytes);
                     Console.WriteLine($"[From Server] {recvData}");
-                    listenSocket.Shutdown(SocketShutdown.Both);
-                    listenSocket.Close();
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
                 }
                 catch (Exception ex)
                 {
