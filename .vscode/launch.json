@@ -5,14 +5,14 @@
             "name": "C#: ServerBase",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/202410/Csharp10_01Server(~02)/ServerBase/ServerBase.csproj",
+            "projectPath": "${workspaceFolder}/202410/Csharp10_01Server/ServerBase/ServerBase.csproj",
             "launchConfigurationId": "TargetFramework=;ServerBase"
         },
         {
             "name": "C#: Dummy",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/202410/Csharp10_01Server(~02)/Dummy/Dummy.csproj",
+            "projectPath": "${workspaceFolder}/202410/Csharp10_01Server/Dummy/Dummy.csproj",
             "launchConfigurationId": "TargetFramework=;Dummy"
         }
     ],

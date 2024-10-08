@@ -40,11 +40,8 @@ namespace Dummy
         {
             Console.WriteLine($"Connected : {endPoint}");
 
-            for (int i = 0; i < 5; i++)
-            {
-                byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended" + i);
-                Send(sendBuffer);
-            }
+            byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended from Dummy");
+            Send(sendBuffer);
         }
         public override void OnReceiev(ArraySegment<byte> buffer)
         {
