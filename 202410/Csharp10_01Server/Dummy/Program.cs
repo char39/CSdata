@@ -43,10 +43,11 @@ namespace Dummy
             byte[] sendBuffer = Encoding.UTF8.GetBytes("Sended from Dummy");
             Send(sendBuffer);
         }
-        public override void OnReceiev(ArraySegment<byte> buffer)
+        public override int OnReceiev(ArraySegment<byte> buffer)
         {
             string recvData = buffer.Array != null ? Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count) : string.Empty;
             Console.WriteLine($"From[Server] : {recvData}");
+            return buffer.Count;
         }
         public override void OnSend(int numBytes)
         {

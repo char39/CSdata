@@ -1,6 +1,7 @@
-﻿using System.Net;
+﻿#pragma warning disable IDE0044
+
+using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace ServerCore
 {

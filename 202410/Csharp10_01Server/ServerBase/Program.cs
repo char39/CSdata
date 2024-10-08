@@ -66,20 +66,40 @@ namespace ServerBase
         }
     }
 
+    public class Knight
+    {
+        public int hp;
+        public int attack;
+        public List<int> skills = [];
+    }
+
     public class GameSession : Session
     {
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"Connected : {endPoint}");
-            byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to ServerCore!\n");
-            Send(sendBuff);
+
+            Knight knight = new() {hp = 100, attack = 10};
+
+            // byte[] sendBuff = new byte[4096];   // 이전 코드 : Encoding.UTF8.GetBytes("Welcome to ServerCore!\n");
+            ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
+
+            byte[] buffer1 = BitConverter.GetBytes(knight.hp);
+            byte[] buffer2 = BitConverter.GetBytes(knight.attack);
+            Array.Copy(buffer1, 0, openSegment.ToArray(), openSegment.Offset, buffer1.Length);
+            Array.Copy(buffer2, 0, openSegment.ToArray(), openSegment.Offset + buffer1.Length, buffer2.Length);
+
+            ArraySegment<byte> sendBuff = SendBufferHelper.Close(buffer1.Length + buffer2.Length);
+
+            Send(sendBuff.ToArray());
             Thread.Sleep(1000);
             Disconnect();
         }
-        public override void OnReceiev(ArraySegment<byte> buffer)
+        public override int OnReceiev(ArraySegment<byte> buffer)
         {
             string recvData = buffer.Array != null ? Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count) : string.Empty;
             Console.WriteLine($"From[Client] : {recvData}");
+            return buffer.Count;
         }
         public override void OnSend(int numBytes)
         {

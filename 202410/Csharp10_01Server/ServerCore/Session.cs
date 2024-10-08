@@ -1,21 +1,24 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace ServerCore
 {
+
     public abstract class Session
     {
         protected Socket? socket;
         protected SocketAsyncEventArgs recvArgs = new();
         protected SocketAsyncEventArgs sendArgs = new();
         protected int disconnected = 0;
+
+        protected ReceiveBuffer _receiveBuffer = new(1024);
+
         protected Queue<byte[]> sendQueue = new();
-        protected List<ArraySegment<byte>> pendingList = new();
+        protected List<ArraySegment<byte>> pendingList = [];
         protected readonly object lockObj = new();
 
         public abstract void OnConnected(EndPoint endPoint);
-        public abstract void OnReceiev(ArraySegment<byte> buffer);
+        public abstract int OnReceiev(ArraySegment<byte> buffer);
         public abstract void OnSend(int numBytes);
         public abstract void OnDisconnected(EndPoint endpoint);
 
@@ -24,7 +27,7 @@ namespace ServerCore
             this.socket = socket;
 
             recvArgs.Completed += OnReceiveCompleted;
-            recvArgs.SetBuffer(new byte[1024], 0, 1024);
+            // recvArgs.SetBuffer(new byte[1024], 0, 1024);
             sendArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnSendCompleted);
 
             RegisterReceive(recvArgs);
@@ -107,6 +110,10 @@ namespace ServerCore
         /// <summary> 네트워크 통신 메서드 </summary>
         protected void RegisterReceive(SocketAsyncEventArgs args)
         {
+            _receiveBuffer.Clean();
+            ArraySegment<byte> segment = _receiveBuffer.WriteSegment;
+            recvArgs.SetBuffer(segment.Array, segment.Offset, segment.Count);
+
             if (socket == null)
                 throw new InvalidOperationException("Socket is not initialized.");
 
@@ -122,16 +129,28 @@ namespace ServerCore
             {
                 try
                 {
-                    if (args.Buffer != null)
-                        OnReceiev(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
-                    else
+                    if (_receiveBuffer.OnWrite(args.BytesTransferred) == false)
                     {
-                        Console.WriteLine("Receive buffer is null.");
+                        Console.WriteLine("Receive buffer overflow.");
                         Disconnect();
+                        return;
                     }
-                    // // 추상클래스 사용 이전 방법
-                    // string recvData = Encoding.UTF8.GetString(args.Buffer, args.Offset, args.BytesTransferred);
-                    // Console.WriteLine($"From[Client] : {recvData}");
+
+                    int processLen = OnReceiev(_receiveBuffer.ReadSegment);
+                    if (processLen < 0 || _receiveBuffer.DataSize < processLen)
+                    {
+                        Console.WriteLine("Receive process failed.");
+                        Disconnect();
+                        return;
+                    }
+
+                    if (_receiveBuffer.OnRead(processLen) == false)
+                    {
+                        Console.WriteLine("Receive buffer overflow.");
+                        Disconnect();
+                        return;
+                    }
+
                     RegisterReceive(args);
                 }
                 catch (Exception ex)
